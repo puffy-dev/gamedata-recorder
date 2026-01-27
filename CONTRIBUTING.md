@@ -13,7 +13,7 @@ Using PowerShell or Command Prompt:
 2. Clone the repo:
 
 ```powershell
-git clone https://github.com/Wayfarer-Labs/owl-control.git
+git clone https://github.com/Overworldai/owl-control.git
 cd owl-control
 ```
 
@@ -156,8 +156,7 @@ cargo run -p bump-version -- 1.1.1-rc1
 After creating a release candidate:
 
 1. Push the RC tag to trigger the automated build
-2. Share the RC with testers in the Discord server
-3. Gather feedback and fix any issues
+2. Gather feedback and fix any issues
 4. Once validated, create the final release
 
 ## Questions?

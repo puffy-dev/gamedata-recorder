@@ -39,7 +39,7 @@ OWL Control is fully open-source, so anyone can verify its inner workings by rea
 
 Watch the [Walkthrough Video](https://vimeo.com/1134400699) or follow the steps below:
 
-- [Download OWL Control installer](https://github.com/Wayfarer-Labs/owl-control/releases/latest).
+- [Download OWL Control installer](https://github.com/Overworldai/owl-control/releases/latest).
 - Run the installer.
 - Launch the app from your desktop or Start menu.
   - Check the bottom right corner of your screen for the turquoise OWL control icon. The app may already be open.
@@ -103,15 +103,14 @@ If you're interested in the technical details or want to contribute, please visi
 
 |       Need Help?       | Where to Go                                                                                  |
 | :--------------------: | :------------------------------------------------------------------------------------------- |
-| 🐛 **Issues or Bugs?** | Report them on our [GitHub Issues](https://github.com/Wayfarer-Labs/owl-control/issues) page |
-|   ❓ **Questions?**    | Visit our [GitHub Issues](https://github.com/Wayfarer-Labs/owl-control/issues) page          |
-|     **💬Discord**      | [Discord Community](https://discord.gg/dX4HW9Pt7Z)                                           |
+| 🐛 **Issues or Bugs?** | Report them on our [GitHub Issues](https://github.com/Overworldai/owl-control/issues) page |
+|   ❓ **Questions?**    | Visit our [GitHub Issues](https://github.com/Overworldai/owl-control/issues) page          |
 
 <div align="center">
 
-# OWL Control is a project by [Wayfarer Labs](https://wayfarerlabs.ai)
+# OWL Control is a project by [Overworld](https://wayfarerlabs.ai)
 
 Building open datasets for AI research<hr>
 
-2025 Wayfarer Labs<br>
+2025 Overworld<br>
 Trademarks `` copyright respective owners where indicated .</div>

@@ -58,7 +58,7 @@ pub const PLAY_TIME_SAVE_INTERVAL: Duration = if PLAY_TIME_TESTING {
 };
 
 /// GitHub organization
-pub const GH_ORG: &str = "Wayfarer-Labs";
+pub const GH_ORG: &str = "Overworldai";
 /// GitHub repository
 pub const GH_REPO: &str = "owl-control";
 

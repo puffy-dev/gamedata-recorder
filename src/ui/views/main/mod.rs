@@ -154,7 +154,7 @@ impl App {
                     });
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         ui.hyperlink_to(
-                            RichText::new("Wayfarer Labs")
+                            RichText::new("Overworld")
                                 .italics()
                                 .color(Color32::LIGHT_BLUE),
                             "https://wayfarerlabs.ai/",
