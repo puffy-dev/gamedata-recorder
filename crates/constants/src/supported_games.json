@@ -15,11 +15,6 @@
     "binaries": ["arma3", "arma3_x64"]
   },
   {
-    "game": "Avowed",
-    "url": "https://store.steampowered.com/app/2457220/Avowed/",
-    "binaries": ["avowed", "avowed-win64-shipping"]
-  },
-  {
     "game": "Battlefield Hardline",
     "url": "https://store.steampowered.com/app/1238880/Battlefield_Hardline/",
     "binaries": ["bfh"]
@@ -65,11 +60,6 @@
     "binaries": ["trygame-win32-shipping", "conundrum"]
   },
   {
-    "game": "Crysis 3",
-    "url": "https://store.steampowered.com/app/2096610/Crysis_3_Remastered/",
-    "binaries": ["crysis3", "crysis3remastered", "crysis3remastered.exe"]
-  },
-  {
     "game": "Dark Hours",
     "url": "https://store.steampowered.com/app/2208570/Dark_Hours/",
     "binaries": ["dark hours", "darkhours-win64-shipping"]
@@ -93,11 +83,6 @@
     "game": "Everyone's Gone to the Rapture",
     "url": "https://store.steampowered.com/app/417880/Everybodys_Gone_to_the_Rapture/",
     "binaries": ["rapture_release"]
-  },
-  {
-    "game": "Far Cry 3: Blood Dragon",
-    "url": "https://store.steampowered.com/app/233270/Far_Cry_3__Blood_Dragon/",
-    "binaries": ["fc3_blooddragon", "fc3_blooddragon_d3d11"]
   },
   {
     "game": "Fobia - St. Dinfna Hotel",
@@ -200,16 +185,6 @@
     "binaries": ["payday3client", "payday3client-win64-shipping"]
   },
   {
-    "game": "Q.U.B.E. 2",
-    "url": "https://store.steampowered.com/app/359100/QUBE_2/",
-    "binaries": ["qube", "qube-win64-shipping"]
-  },
-  {
-    "game": "Q.U.B.E.",
-    "url": "https://store.steampowered.com/app/1564220/QUBE_10th_Anniversary/",
-    "binaries": ["qube", "qube-win64-shipping"]
-  },
-  {
     "game": "Ready or Not",
     "url": "https://store.steampowered.com/app/1144200/Ready_or_Not/",
     "binaries": ["readyornot", "readyornotsteam-win64-shipping"]
@@ -260,11 +235,6 @@
     "binaries": ["darknessii"]
   },
   {
-    "game": "The Elder Scrolls IV: Oblivion Remastered",
-    "url": "https://store.steampowered.com/app/2623190/The_Elder_Scrolls_IV_Oblivion_Remastered/",
-    "binaries": ["oblivionremastered", "oblivionremastered-win64-shipping"]
-  },
-  {
     "game": "The Lightkeeper",
     "url": "https://store.steampowered.com/app/3612850/The_Lightkeeper/",
     "binaries": ["thelightkeeper", "thelightkeeper-win64-shipping"]
@@ -278,15 +248,6 @@
     "game": "The Talos Principle 2",
     "url": "https://store.steampowered.com/app/835960/The_Talos_Principle_2/",
     "binaries": ["talos2", "talos2-win64-shipping"]
-  },
-  {
-    "game": "The Vanishing of Ethan Carter",
-    "url": "https://store.steampowered.com/app/258520/The_Vanishing_of_Ethan_Carter",
-    "binaries": [
-      "astronautsgame-win32-shipping",
-      "astronautsgame-win64-shipping",
-      "ethancarter"
-    ]
   },
   {
     "game": "The Witness",
