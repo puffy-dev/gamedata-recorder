@@ -1139,155 +1139,726 @@
     "reason": "EnoughData"
   },
   {
-    "name": "Miscellaneous Unsupported",
+    "name": "ARC Raiders",
+    "binaries": ["pioneergame"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "ARK: Survival Ascended",
+    "binaries": ["arkascended"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "ARK: Survival Evolved",
+    "binaries": ["shootergame"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "American Truck Simulator",
+    "binaries": ["amtrucks"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Amnesia: A Machine for Pigs",
+    "binaries": ["aamfp"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Amnesia: Rebirth",
+    "binaries": ["amnesiarebirth"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Among the Sleep",
+    "binaries": ["among the sleep"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "AnyDesk",
+    "binaries": ["anydesk"],
+    "reason": "NotAGame"
+  },
+  {
+    "name": "Assassin's Creed Syndicate",
+    "binaries": ["acs"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Assetto Corsa Competizione",
+    "binaries": ["ac2-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Avatar: Frontiers of Pandora",
+    "binaries": ["afop"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "BDS Unknown UE Game",
+    "binaries": ["bds-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Battle Shapers",
+    "binaries": ["battleshapers"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "BeamNG.drive",
+    "binaries": ["beamng.drive.x64"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "BioShock",
+    "binaries": ["bioshock"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "BioShock Remastered",
+    "binaries": ["bioshockhd"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Black Mesa",
+    "binaries": ["bms"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Blood: Fresh Supply",
+    "binaries": ["anuket_x64"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "BlueStacks HD Player",
+    "binaries": ["hd-player"],
+    "reason": "NotAGame"
+  },
+  {
+    "name": "Brave",
+    "binaries": ["brave"],
+    "reason": "NotAGame"
+  },
+  {
+    "name": "Bus Flipper Simulator",
+    "binaries": ["busflippergame-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "CUFFBUST",
+    "binaries": ["cuffbust-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty 4: Modern Warfare",
+    "binaries": ["iw3sp"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Black Ops 4",
+    "binaries": ["blackops4"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Black Ops II",
+    "binaries": ["t6zm"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Black Ops III (Custom Client)",
+    "binaries": ["boiii (2)"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Modern Warfare 2 (2009)",
+    "binaries": ["iw4sp"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Car Mechanic Simulator 2018",
+    "binaries": ["cms2018"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Car Mechanic Simulator 2021",
     "binaries": [
-      "aamfp",
-      "ac2-win64-shipping",
-      "acs",
-      "afop",
-      "amnesiarebirth",
-      "among the sleep",
-      "amtrucks",
-      "anuket_x64",
-      "anydesk",
-      "arkascended",
-      "battleshapers",
-      "bds-win64-shipping",
-      "beamng.drive.x64",
-      "beginnersguide",
-      "bioshock",
-      "bioshockhd",
-      "blackops4",
-      "bloodlines2-win64-shipping",
-      "bms",
-      "boiii (2)",
-      "brave",
-      "busflippergame-win64-shipping",
       "car mechanic simulator 2021",
-      "car mechanic simulator 2021 demo",
-      "clustertruck",
-      "cms2018",
-      "cmw",
-      "cof",
-      "condemned",
-      "cookingsim",
-      "crab game",
-      "cuffbust-win64-shipping",
-      "deadlock",
-      "dearesther",
-      "deceit2game-win64-shipping",
-      "devour",
-      "dinocop",
-      "discovery-d",
-      "drivebeyondhorizons-win64-shipping",
-      "dungeoncrawler",
-      "dxmd",
-      "dyinglightgame",
-      "efootball",
-      "eocapp",
-      "exit8-win64-shipping",
-      "explorer",
-      "factorygameegs-win64-shipping",
-      "fallout3",
-      "falloutnv",
-      "fear",
-      "fearxp",
-      "fishingplanet",
-      "forzahorizon4",
-      "forzahorizon5",
-      "fragpunk",
-      "fsd-wingdk-shipping",
-      "geforcenow",
-      "gmod",
-      "gonehome",
-      "gonehome32",
-      "gymmanager",
-      "halfswordue5-win64-shipping",
-      "hd-player",
-      "hitman3",
-      "hl",
-      "housebuilder",
-      "housebuilder2",
-      "i am your beast",
-      "icue",
-      "internet cafe simulator",
-      "internet cafe simulator 2",
-      "internet cafe simulator 2025",
-      "iw3sp",
-      "iw4sp",
-      "journey",
-      "jump space",
-      "justcause2",
-      "justcause3",
-      "justcause4",
-      "killingfloor",
-      "layersoffear-win64-shipping",
-      "league of legends",
-      "lethal company",
-      "liftoff",
-      "liftoff micro drones",
-      "manifoldgarden",
-      "miside",
-      "momentum",
-      "muck",
-      "mycopunk",
-      "neighbours from hell 3d",
-      "nightfallclient-win64-shipping",
-      "olgame",
-      "owl-recorder",
-      "paintthetownred",
-      "palworld-win64-shipping",
-      "pcbs",
-      "peak",
-      "peaks of yore",
-      "pendriverpro-win64-shipping",
-      "phasmophobia",
-      "pioneergame",
-      "powerwash simulator 2 demo",
-      "prison escape simulator",
-      "ranch_simulator-win64-shipping",
-      "remnant2-win64-shipping",
-      "repo",
-      "ride-win64-shipping",
-      "risk of rain 2",
-      "roboquest-win64-shipping",
-      "rustclient",
-      "schedule i",
-      "scp nine-tailed fox",
-      "scpsl",
-      "scum",
-      "searchhost",
-      "serioussam",
-      "sh",
-      "shady knight",
-      "shark attack deathmatch 2",
-      "shmcd",
-      "shootergame",
-      "speciesunknown-win64-shipping",
-      "stalker2-win64-shipping",
-      "static dread",
-      "stranded_deep",
-      "stray-win64-shipping",
-      "superliminalgog",
-      "supermarket together",
-      "sw.x64",
-      "swat4",
-      "t6zm",
-      "talesofescape",
-      "the voidness",
-      "thecrew2",
-      "thief simulator 2",
-      "tus",
-      "ultrakill",
-      "unrealeditor",
-      "viewfinder",
-      "viscera cleanup detail",
-      "void bastards",
-      "whatsapp.root",
-      "white knuckle",
-      "wildbastards",
-      "wwaatd-win64-shipping"
+      "car mechanic simulator 2021 demo"
     ],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Chivalry: Medieval Warfare",
+    "binaries": ["cmw"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Clustertruck",
+    "binaries": ["clustertruck"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Condemned: Criminal Origins",
+    "binaries": ["condemned"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Cooking Simulator",
+    "binaries": ["cookingsim"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Corsair iCUE",
+    "binaries": ["icue"],
+    "reason": "NotAGame"
+  },
+  {
+    "name": "Crab Game",
+    "binaries": ["crab game"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Cry of Fear",
+    "binaries": ["cof"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "DEVOUR",
+    "binaries": ["devour"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Dark and Darker",
+    "binaries": ["dungeoncrawler"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Deadlock",
+    "binaries": ["deadlock"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Dear Esther",
+    "binaries": ["dearesther"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Deceit 2",
+    "binaries": ["deceit2game-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Deep Rock Galactic",
+    "binaries": ["fsd-wingdk-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Deus Ex: Mankind Divided",
+    "binaries": ["dxmd"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Dinocop",
+    "binaries": ["dinocop"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Divinity: Original Sin",
+    "binaries": ["eocapp"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Drive Beyond Horizons",
+    "binaries": ["drivebeyondhorizons-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Dying Light",
+    "binaries": ["dyinglightgame"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Exit 8",
+    "binaries": ["exit8-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "F.E.A.R.",
+    "binaries": ["fear"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "F.E.A.R. Extraction Point",
+    "binaries": ["fearxp"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Fallout 3",
+    "binaries": ["fallout3"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Fallout: New Vegas",
+    "binaries": ["falloutnv"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Fishing Planet",
+    "binaries": ["fishingplanet"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Forza Horizon 4",
+    "binaries": ["forzahorizon4"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Forza Horizon 5",
+    "binaries": ["forzahorizon5"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "FragPunk",
+    "binaries": ["fragpunk"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Garry's Mod",
+    "binaries": ["gmod"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "GeForce NOW",
+    "binaries": ["geforcenow"],
+    "reason": "NotAGame"
+  },
+  {
+    "name": "Gone Home",
+    "binaries": ["gonehome", "gonehome32"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Gym Manager",
+    "binaries": ["gymmanager"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "HITMAN World of Assassination",
+    "binaries": ["hitman3"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Half Sword",
+    "binaries": ["halfswordue5-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Half-Life",
+    "binaries": ["hl"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "House Builder",
+    "binaries": ["housebuilder"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "House Builder 2",
+    "binaries": ["housebuilder2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "I Am Your Beast",
+    "binaries": ["i am your beast"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Internet Cafe Simulator",
+    "binaries": ["internet cafe simulator"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Internet Cafe Simulator 2",
+    "binaries": ["internet cafe simulator 2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Internet Cafe Simulator 2025",
+    "binaries": ["internet cafe simulator 2025"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Journey",
+    "binaries": ["journey"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Jump Space",
+    "binaries": ["jump space"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Just Cause 2",
+    "binaries": ["justcause2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Just Cause 3",
+    "binaries": ["justcause3"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Just Cause 4",
+    "binaries": ["justcause4"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Killing Floor",
+    "binaries": ["killingfloor"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Killing Floor 3",
+    "binaries": ["nightfallclient-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Layers of Fear (2023)",
+    "binaries": ["layersoffear-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "League of Legends",
+    "binaries": ["league of legends"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Lethal Company",
+    "binaries": ["lethal company"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Liftoff: FPV Drone Racing",
+    "binaries": ["liftoff"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Liftoff: Micro Drones",
+    "binaries": ["liftoff micro drones"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Manifold Garden",
+    "binaries": ["manifoldgarden"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "MiSide",
+    "binaries": ["miside"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Momentum Mod",
+    "binaries": ["momentum"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Muck",
+    "binaries": ["muck"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Mycopunk",
+    "binaries": ["mycopunk"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Neighbours from Hell",
+    "binaries": ["neighbours from hell 3d"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "OWL Recorder",
+    "binaries": ["owl-recorder"],
+    "reason": "NotAGame"
+  },
+  {
+    "name": "Outlast",
+    "binaries": ["olgame"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "PC Building Simulator",
+    "binaries": ["pcbs"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "PEAK",
+    "binaries": ["peak"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Pacific Drive",
+    "binaries": ["pendriverpro-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Paint the Town Red",
+    "binaries": ["paintthetownred"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Palworld",
+    "binaries": ["palworld-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Peaks of Yore",
+    "binaries": ["peaks of yore"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Phasmophobia",
+    "binaries": ["phasmophobia"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "PowerWash Simulator 2",
+    "binaries": ["powerwash simulator 2 demo"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Prison Escape Simulator",
+    "binaries": ["prison escape simulator"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "R.E.P.O.",
+    "binaries": ["repo"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "RV There Yet?",
+    "binaries": ["ride-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Ranch Simulator",
+    "binaries": ["ranch_simulator-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Remnant 2",
+    "binaries": ["remnant2-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Risk of Rain 2",
+    "binaries": ["risk of rain 2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Roboquest",
+    "binaries": ["roboquest-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Rust",
+    "binaries": ["rustclient"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "S.T.A.L.K.E.R. 2: Heart of Chornobyl",
+    "binaries": ["stalker2-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "SCP: Nine-Tailed Fox",
+    "binaries": ["scp nine-tailed fox"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "SCP: Secret Laboratory",
+    "binaries": ["scpsl"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "SCUM",
+    "binaries": ["scum"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "SUPERHOT",
+    "binaries": ["sh"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "SUPERHOT: MIND CONTROL DELETE",
+    "binaries": ["shmcd"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "SWAT 4",
+    "binaries": ["swat4"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Satisfactory",
+    "binaries": ["factorygameegs-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Schedule I",
+    "binaries": ["schedule i"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Serious Sam",
+    "binaries": ["serioussam"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Shadow Warrior",
+    "binaries": ["sw.x64"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Shady Knight",
+    "binaries": ["shady knight"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Shark Attack Deathmatch 2",
+    "binaries": ["shark attack deathmatch 2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Species: Unknown",
+    "binaries": ["speciesunknown-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Static Dread",
+    "binaries": ["static dread"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Stranded Deep",
+    "binaries": ["stranded_deep"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Stray",
+    "binaries": ["stray-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Superliminal",
+    "binaries": ["superliminalgog"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Supermarket Together",
+    "binaries": ["supermarket together"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Tales of Escape",
+    "binaries": ["talesofescape"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Beginner's Guide",
+    "binaries": ["beginnersguide"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Crew 2",
+    "binaries": ["thecrew2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Finals",
+    "binaries": ["discovery-d"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Voidness",
+    "binaries": ["the voidness"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Thief Simulator 2",
+    "binaries": ["thief simulator 2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Totally Unrealistic Shooter",
+    "binaries": ["tus"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "ULTRAKILL",
+    "binaries": ["ultrakill"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Unreal Editor",
+    "binaries": ["unrealeditor"],
+    "reason": "NotAGame"
+  },
+  {
+    "name": "Vampire: The Masquerade - Bloodlines 2",
+    "binaries": ["bloodlines2-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Viewfinder",
+    "binaries": ["viewfinder"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Viscera Cleanup Detail",
+    "binaries": ["viscera cleanup detail"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Void Bastards",
+    "binaries": ["void bastards"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "We Who Are About To Die",
+    "binaries": ["wwaatd-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "WhatsApp",
+    "binaries": ["whatsapp.root"],
+    "reason": "NotAGame"
+  },
+  {
+    "name": "White Knuckle",
+    "binaries": ["white knuckle"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Wild Bastards",
+    "binaries": ["wildbastards"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Windows Explorer",
+    "binaries": ["explorer"],
+    "reason": "NotAGame"
+  },
+  {
+    "name": "Windows Search",
+    "binaries": ["searchhost"],
+    "reason": "NotAGame"
+  },
+  {
+    "name": "eFootball",
+    "binaries": ["efootball"],
     "reason": "EnoughData"
   }
 ]
