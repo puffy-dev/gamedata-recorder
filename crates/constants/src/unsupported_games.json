@@ -1,10 +1,5 @@
 [
   {
-    "name": "COMMENT: This file is kept for backwards compatibility. It will be removed in the near-future.",
-    "binaries": ["comment-not-a-real-executable"],
-    "reason": "EnoughData"
-  },
-  {
     "name": "Fortnite",
     "binaries": ["fortnite", "fortniteclient-win64-shipping"],
     "reason": "EnoughData"
@@ -194,7 +189,11 @@
     "binaries": ["DXHRDC.exe"],
     "reason": "EnoughData"
   },
-  { "name": "Metro 2033", "binaries": ["metro.exe"], "reason": "EnoughData" },
+  {
+    "name": "Metro 2033",
+    "binaries": ["metro.exe"],
+    "reason": "EnoughData"
+  },
   {
     "name": "Roblox",
     "binaries": ["robloxstudiobeta", "robloxplayerbeta"],
@@ -290,5 +289,1005 @@
     "name": "Visual Studio Code",
     "binaries": ["code", "codium"],
     "reason": "NotAGame"
+  },
+  {
+    "name": "Call of Duty: Black Ops 6",
+    "binaries": ["cod"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Sons of the Forest",
+    "binaries": ["sonsoftheforest"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Forest",
+    "binaries": ["theforest"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Elder Scrolls V: Skyrim",
+    "binaries": ["skyrimse"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Sea of Thieves",
+    "binaries": ["sotgame"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Borderlands 2",
+    "binaries": ["borderlands2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Far Cry 5",
+    "binaries": ["farcry5"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Far Cry 6",
+    "binaries": ["farcry6"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Dead Island 2",
+    "binaries": ["deadisland-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Splitgate",
+    "binaries": ["portalwars-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Killing Floor 2",
+    "binaries": ["kfgame"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Ghostwire: Tokyo",
+    "binaries": ["gwt"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Far Cry 3",
+    "binaries": ["farcry3_d3d11"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Warhammer: Vermintide 2",
+    "binaries": ["vermintide2_dx12"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Apex Legends",
+    "binaries": ["r5apex_dx12"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Medieval Dynasty",
+    "binaries": ["medieval_dynasty-wingdk-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Battlefield 6 / REDSEC",
+    "binaries": ["bf6"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Delta Force",
+    "binaries": ["deltaforceclient-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Slime Rancher 2",
+    "binaries": ["slimerancher2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Slime Rancher",
+    "binaries": ["slimerancher"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "PAYDAY 2",
+    "binaries": ["payday2_win32_release"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Keep Digging",
+    "binaries": ["keepdigging-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Dishonored",
+    "binaries": ["dishonored"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "DOOM Eternal",
+    "binaries": ["doometernalx64vk"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Far Cry 4",
+    "binaries": ["farcry4"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Outlast Trials",
+    "binaries": ["totclient-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Borderlands 3",
+    "binaries": ["borderlands3"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Borderlands: The Pre-Sequel",
+    "binaries": ["borderlandspresequel"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "No Man's Sky",
+    "binaries": ["nms"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Halo 2 Anniversary (MCC)",
+    "binaries": ["mcc-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Wolfenstein: The New Order",
+    "binaries": ["wolfneworder_x64"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Severed Steel",
+    "binaries": ["thankyouverycool-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "GTFO",
+    "binaries": ["gtfo"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Medieval Dynasty",
+    "binaries": ["medieval_dynasty-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Prey (2017)",
+    "binaries": ["prey"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Green Hell",
+    "binaries": ["gh"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Talos Principle",
+    "binaries": ["talos"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Firewatch",
+    "binaries": ["firewatch"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Resident Evil Village",
+    "binaries": ["re8"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Warhammer 40,000: Darktide",
+    "binaries": ["darktide"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Viscera Cleanup Detail",
+    "binaries": ["udk"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Ghostrunner",
+    "binaries": ["ghostrunner-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "A Story About My Uncle",
+    "binaries": ["asamu-win32-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Titanfall 2",
+    "binaries": ["titanfall2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Shadow Warrior 2",
+    "binaries": ["shadowwarrior2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Thief Simulator",
+    "binaries": ["thief"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "VOIDBREAKER",
+    "binaries": ["voidbreaker-wingdk-shipping", "voidbreaker-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "DOOM 2016",
+    "binaries": ["doomx64"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Subnautica",
+    "binaries": ["subnautica"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Fallout 4",
+    "binaries": ["fallout4"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Wolfenstein: Youngblood",
+    "binaries": ["youngblood_x64vk"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Tiny Tina's Wonderlands",
+    "binaries": ["wonderlands"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Far Cry: New Dawn",
+    "binaries": ["farcrynewdawn"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Resident Evil 7: Biohazard",
+    "binaries": ["re7"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "High on Life",
+    "binaries": ["oregon-wingdk-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Thief",
+    "binaries": ["shipping-thiefgame"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "ICARUS",
+    "binaries": ["icarus-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "RAGE 2",
+    "binaries": ["rage2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Superliminal",
+    "binaries": ["superliminal"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Dishonored 2",
+    "binaries": ["dishonored2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Blair Witch",
+    "binaries": ["blairwitch-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Mirror's Edge",
+    "binaries": ["mirrorsedge"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Voidtrain",
+    "binaries": ["voidtrain-wingdk-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Panicore",
+    "binaries": ["panicore-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Battlefield 1",
+    "binaries": ["bf1"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Borderlands 4",
+    "binaries": ["borderlands4"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "MORDHAU",
+    "binaries": ["mordhau-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Generation Zero",
+    "binaries": ["generationzero_f"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Metro Exodus",
+    "binaries": ["metroexodus"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Halo: Infinite",
+    "binaries": ["haloinfinite"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "High on Life",
+    "binaries": ["oregon-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Ghostrunner 2",
+    "binaries": ["ghostrunner2-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Battlefield 4",
+    "binaries": ["bf4"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Battlefield V",
+    "binaries": ["bfv"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Alien: Isolation",
+    "binaries": ["ai"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Far Cry 3",
+    "binaries": ["farcry3"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Far Cry 3: Blood Dragon",
+    "binaries": ["fc3_blooddragon_d3d11"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Crysis 1 Remastered",
+    "binaries": ["crysisremastered"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Dishonored: Death of the Outsider",
+    "binaries": ["dishonored_do"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Witness",
+    "binaries": ["witness64_d3d11"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Crysis 2",
+    "binaries": ["crysis2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Poppy Playtime",
+    "binaries": ["poppy_playtime-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Tacoma",
+    "binaries": ["tacoma"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Wolfenstein: The New Colossus",
+    "binaries": ["newcolossus_x64vk"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Wolfenstein: The Old Blood",
+    "binaries": ["wolfoldblood_x64"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "BioShock Infinite",
+    "binaries": ["bioshockinfinite"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Zero Hour",
+    "binaries": ["zero hour"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Deathloop",
+    "binaries": ["deathloop"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "What Remains of Edith Finch",
+    "binaries": ["finchgame", "finchgame-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Enlisted",
+    "binaries": ["enlisted"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: WWII",
+    "binaries": ["s2_sp64_ship", "s2_mp64_ship"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Mirror's Edge Catalyst",
+    "binaries": ["mirrorsedgecatalyst"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Ziggurat 2",
+    "binaries": ["ziggurat2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Darkness II",
+    "binaries": ["darknessii"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Back 4 Blood",
+    "binaries": ["back4blood"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Far Cry: Primal",
+    "binaries": ["fcprimal"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Ready or Not",
+    "binaries": ["readyornotsteam-win64-shipping", "readyornot-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Outlast 2",
+    "binaries": ["outlast2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Indiana Jones and the Great Circle",
+    "binaries": ["thegreatcircle"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Black Ops Cold War",
+    "binaries": ["blackopscoldwar"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Borderlands 1",
+    "binaries": ["borderlandsgoty"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Long Dark",
+    "binaries": ["tld"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Avowed",
+    "binaries": ["avowed-wingdk-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "BioShock Infinite",
+    "binaries": ["shippingpc-xgame"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Black Ops 6",
+    "binaries": ["cod24-cod"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Neon White",
+    "binaries": ["neon white"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Dead Island 2",
+    "binaries": ["deadisland-wingdk-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Atomic Heart",
+    "binaries": ["atomicheart-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Abyssus",
+    "binaries": ["rgame-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "ELDERBORN",
+    "binaries": ["elderborn"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Journey to the Savage Planet",
+    "binaries": ["towers-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Stanley Parable: Ultra Deluxe",
+    "binaries": ["the stanley parable ultra deluxe"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Hard Reset Redux",
+    "binaries": ["hr.x64"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Outer Worlds",
+    "binaries": ["indianaepicgamestore-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Layers of Fear 2",
+    "binaries": ["lof2-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "BPM: Bullets Per Minute",
+    "binaries": ["bpmgame-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Hell Let Loose",
+    "binaries": ["hllepicgamesstore-win64-shipping", "hll-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Outer Wilds",
+    "binaries": ["outerwilds"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Teardown",
+    "binaries": ["teardown"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Trepang2",
+    "binaries": ["cppfps-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Battlefield 3",
+    "binaries": ["bf3"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Stanley Parable",
+    "binaries": ["stanley"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Outer Worlds 2",
+    "binaries": [
+      "theouterworlds2-wingdk-shipping",
+      "theouterworlds2-win64-shipping"
+    ],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "PAYDAY 3",
+    "binaries": ["payday3client-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Immortals of Aveum",
+    "binaries": ["immortalsofaveum-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Conundrum",
+    "binaries": ["conundrum-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Q.U.B.E. 2",
+    "binaries": ["qube-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Battlefield Hardline",
+    "binaries": ["bfh"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Crysis 3",
+    "binaries": ["crysis3remastered"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "DOOM 2016",
+    "binaries": ["doomx64vk"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Black Ops III",
+    "binaries": ["blackops3"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Soma",
+    "binaries": ["soma"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Shadow Warrior 3",
+    "binaries": ["sw3"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Close to the Sun",
+    "binaries": ["ctts-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Vanishing of Ethan Carter",
+    "binaries": ["astronautsgame-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Elder Scrolls IV: Oblivion Remastered",
+    "binaries": ["oblivionremastered-wingdk-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Modern Warfare II (2022)",
+    "binaries": ["sp22-cod"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Warhammer: Vermintide 2",
+    "binaries": ["vermintide2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Outer Worlds",
+    "binaries": ["indiana-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Dishonored: Death of the Outsider",
+    "binaries": ["dishonored_do_x64"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Superliminal",
+    "binaries": ["superliminalsteam"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Elder Scrolls IV: Oblivion Remastered",
+    "binaries": ["oblivionremastered-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Modern Warfare (2019)",
+    "binaries": ["modernwarfare"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Modern Warfare III (2023)",
+    "binaries": ["cod23-cod"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Outer Worlds",
+    "binaries": ["indianawindowsstore-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Atomic Heart",
+    "binaries": ["atomicheart-wingdk-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Crysis 3",
+    "binaries": ["crysis3"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Q.U.B.E. 2",
+    "binaries": ["qube_remastered-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Metro: Last Light (delisted, see Redux)",
+    "binaries": ["metroll"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Vanishing of Ethan Carter",
+    "binaries": ["ethancarter-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Poppy Playtime",
+    "binaries": ["playtime_chapter3-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Crysis 1 Remastered",
+    "binaries": ["crysis"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Elder Scrolls V: Skyrim",
+    "binaries": ["tesv"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Avowed",
+    "binaries": ["avowed-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Halo 2 Anniversary (MCC)",
+    "binaries": ["mccwinstore-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Borderlands 1",
+    "binaries": ["borderlands"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Enlisted",
+    "binaries": ["enlisted-gdk"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Poppy Playtime",
+    "binaries": ["playtime_prototype4-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Modern Warfare III (2023)",
+    "binaries": ["sp23-cod"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Poppy Playtime",
+    "binaries": ["ch4_pro-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Crysis 2",
+    "binaries": ["crysis2remastered"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Black Ops 6",
+    "binaries": ["sp24-cod"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Crysis 1 Remastered",
+    "binaries": ["crysis64"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Black Ops 6",
+    "binaries": ["cod_sp"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Q.U.B.E. 2",
+    "binaries": ["qube"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Battlefield 4",
+    "binaries": ["bf4_offline"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Delta Force",
+    "binaries": ["bhdclient-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Call of Duty: Modern Warfare II (2022)",
+    "binaries": ["cod22-cod"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Battlefield 4",
+    "binaries": ["bf4_x86"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Miscellaneous Unsupported",
+    "binaries": [
+      "aamfp",
+      "ac2-win64-shipping",
+      "acs",
+      "afop",
+      "amnesiarebirth",
+      "among the sleep",
+      "amtrucks",
+      "anuket_x64",
+      "anydesk",
+      "arkascended",
+      "battleshapers",
+      "bds-win64-shipping",
+      "beamng.drive.x64",
+      "beginnersguide",
+      "bioshock",
+      "bioshockhd",
+      "blackops4",
+      "bloodlines2-win64-shipping",
+      "bms",
+      "boiii (2)",
+      "brave",
+      "busflippergame-win64-shipping",
+      "car mechanic simulator 2021",
+      "car mechanic simulator 2021 demo",
+      "clustertruck",
+      "cms2018",
+      "cmw",
+      "cof",
+      "condemned",
+      "cookingsim",
+      "crab game",
+      "cuffbust-win64-shipping",
+      "deadlock",
+      "dearesther",
+      "deceit2game-win64-shipping",
+      "devour",
+      "dinocop",
+      "discovery-d",
+      "drivebeyondhorizons-win64-shipping",
+      "dungeoncrawler",
+      "dxmd",
+      "dyinglightgame",
+      "efootball",
+      "eocapp",
+      "exit8-win64-shipping",
+      "explorer",
+      "factorygameegs-win64-shipping",
+      "fallout3",
+      "falloutnv",
+      "fear",
+      "fearxp",
+      "fishingplanet",
+      "forzahorizon4",
+      "forzahorizon5",
+      "fragpunk",
+      "fsd-wingdk-shipping",
+      "geforcenow",
+      "gmod",
+      "gonehome",
+      "gonehome32",
+      "gymmanager",
+      "halfswordue5-win64-shipping",
+      "hd-player",
+      "hitman3",
+      "hl",
+      "housebuilder",
+      "housebuilder2",
+      "i am your beast",
+      "icue",
+      "internet cafe simulator",
+      "internet cafe simulator 2",
+      "internet cafe simulator 2025",
+      "iw3sp",
+      "iw4sp",
+      "journey",
+      "jump space",
+      "justcause2",
+      "justcause3",
+      "justcause4",
+      "killingfloor",
+      "layersoffear-win64-shipping",
+      "league of legends",
+      "lethal company",
+      "liftoff",
+      "liftoff micro drones",
+      "manifoldgarden",
+      "miside",
+      "momentum",
+      "muck",
+      "mycopunk",
+      "neighbours from hell 3d",
+      "nightfallclient-win64-shipping",
+      "olgame",
+      "owl-recorder",
+      "paintthetownred",
+      "palworld-win64-shipping",
+      "pcbs",
+      "peak",
+      "peaks of yore",
+      "pendriverpro-win64-shipping",
+      "phasmophobia",
+      "pioneergame",
+      "powerwash simulator 2 demo",
+      "prison escape simulator",
+      "ranch_simulator-win64-shipping",
+      "remnant2-win64-shipping",
+      "repo",
+      "ride-win64-shipping",
+      "risk of rain 2",
+      "roboquest-win64-shipping",
+      "rustclient",
+      "schedule i",
+      "scp nine-tailed fox",
+      "scpsl",
+      "scum",
+      "searchhost",
+      "serioussam",
+      "sh",
+      "shady knight",
+      "shark attack deathmatch 2",
+      "shmcd",
+      "shootergame",
+      "speciesunknown-win64-shipping",
+      "stalker2-win64-shipping",
+      "static dread",
+      "stranded_deep",
+      "stray-win64-shipping",
+      "superliminalgog",
+      "supermarket together",
+      "sw.x64",
+      "swat4",
+      "t6zm",
+      "talesofescape",
+      "the voidness",
+      "thecrew2",
+      "thief simulator 2",
+      "tus",
+      "ultrakill",
+      "unrealeditor",
+      "viewfinder",
+      "viscera cleanup detail",
+      "void bastards",
+      "whatsapp.root",
+      "white knuckle",
+      "wildbastards",
+      "wwaatd-win64-shipping"
+    ],
+    "reason": "EnoughData"
   }
 ]
