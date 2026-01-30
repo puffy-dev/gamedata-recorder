@@ -47,11 +47,13 @@ fn main() {
         }
     }
 
-    // Sort each group alphabetically
+    // Sort each group alphabetically and deduplicate
     for names in groups.values_mut() {
         names.sort_by(|a, b| a.to_lowercase().cmp(&b.to_lowercase()));
+        names.dedup();
     }
     other_games.sort_by(|a, b| a.0.to_lowercase().cmp(&b.0.to_lowercase()));
+    other_games.dedup();
 
     let mut sections = Vec::new();
 
