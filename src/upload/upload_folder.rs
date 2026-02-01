@@ -217,7 +217,12 @@ pub async fn upload_folder(
             init_response.expires_at,
         );
 
-        LocalRecordingPaused::new(info, metadata, upload_progress)
+        let paused = LocalRecordingPaused::new(info, metadata, upload_progress);
+        // Ensure we save initial progress so that the chunk-completion-recorder has something to work with
+        paused
+            .save_upload_progress()
+            .map_err(std::io::Error::other)?;
+        paused
     };
 
     Ok(super::upload_tar::run(

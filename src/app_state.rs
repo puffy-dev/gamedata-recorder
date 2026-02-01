@@ -12,8 +12,7 @@ use egui_wgpu::wgpu;
 use tokio::sync::{broadcast, mpsc};
 
 use crate::{
-    api::UserUploads, config::Config, play_time::PlayTimeTracker, record::LocalRecording,
-    upload::ProgressData,
+    config::Config, play_time::PlayTimeTracker, record::LocalRecording, upload::ProgressData,
 };
 
 pub struct AppState {
@@ -39,6 +38,8 @@ pub struct AppState {
     pub unsupported_games: RwLock<UnsupportedGames>,
     /// Offline mode state
     pub offline: OfflineState,
+    /// Upload filters for date range filtering
+    pub upload_filters: RwLock<UploadFilters>,
 }
 
 /// State for offline mode and backoff retry logic
@@ -89,10 +90,17 @@ impl AppState {
             last_recordable_game: RwLock::new(None),
             unsupported_games: RwLock::new(UnsupportedGames::load_from_embedded()),
             offline: OfflineState::default(),
+            upload_filters: RwLock::new(UploadFilters::default()),
         };
         tracing::debug!("AppState::new() complete");
         state
     }
+}
+
+#[derive(Default, Clone, Copy, Debug)]
+pub struct UploadFilters {
+    pub start_date: Option<chrono::NaiveDate>,
+    pub end_date: Option<chrono::NaiveDate>,
 }
 
 #[derive(Clone, PartialEq)]
@@ -171,7 +179,11 @@ pub enum AsyncRequest {
     OpenDataDump,
     OpenLog,
     UpdateUnsupportedGames(UnsupportedGames),
-    LoadUploadStats,
+    LoadUploadStatistics,
+    LoadUploadList {
+        limit: u32,
+        offset: u32,
+    },
     LoadLocalRecordings,
     DeleteAllInvalidRecordings,
     DeleteAllUploadedLocalRecordings,
@@ -213,7 +225,12 @@ pub enum UiUpdate {
     UploadFailed(String),
     UpdateRecordingState(bool),
     UpdateNewerReleaseAvailable(GitHubRelease),
-    UpdateUserUploads(UserUploads),
+    UpdateUserUploadStatistics(crate::api::UserUploadStatistics),
+    UpdateUserUploadList {
+        uploads: Vec<crate::api::UserUpload>,
+        limit: u32,
+        offset: u32,
+    },
     UpdateLocalRecordings(Vec<LocalRecording>),
     FolderPickerResult {
         old_path: PathBuf,
