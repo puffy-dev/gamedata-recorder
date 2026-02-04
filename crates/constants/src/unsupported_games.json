@@ -5,16 +5,6 @@
     "reason": "EnoughData"
   },
   {
-    "name": "Rust",
-    "binaries": ["rust"],
-    "reason": "EnoughData"
-  },
-  {
-    "name": "DayZ",
-    "binaries": ["dayz_x64"],
-    "reason": "EnoughData"
-  },
-  {
     "name": "The Finals",
     "binaries": ["discovery-e"],
     "reason": "EnoughData"
@@ -473,6 +463,11 @@
   {
     "name": "The Talos Principle",
     "binaries": ["talos"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Talos Principle 2",
+    "binaries": ["talos2", "talos2-win64-shipping"],
     "reason": "EnoughData"
   },
   {
@@ -1859,6 +1854,31 @@
   {
     "name": "eFootball",
     "binaries": ["efootball"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "The Beast Inside",
+    "binaries": ["thebeastinside", "thebeastinside-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Salt 2",
+    "binaries": ["salt2"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "In Sound Mind",
+    "binaries": ["in sound mind"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "ARMA 3",
+    "binaries": ["arma3", "arma3_x64"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Blacktail",
+    "binaries": ["blacktail", "blacktail-win64-shipping"],
     "reason": "EnoughData"
   }
 ]
