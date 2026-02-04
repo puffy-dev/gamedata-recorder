@@ -229,6 +229,10 @@ async fn main(
                                 .ui_update_tx
                                 .send(UiUpdate::UploadFailed("Offline mode is enabled. Uploads are disabled.".to_string()))
                                 .ok();
+                        } else if app_state.upload_in_progress.compare_exchange(
+                            false, true, Ordering::SeqCst, Ordering::SeqCst
+                        ).is_err() {
+                            tracing::info!("Upload already in progress, skipping duplicate UploadData request");
                         } else {
                             tokio::spawn(upload::start(app_state.clone(), api_client.clone(), recording_location.clone()));
                         }
@@ -473,11 +477,19 @@ async fn main(
                         play_cue(&state.sink, &app_state, &cue, &mut state.cue_cache, |s| s);
                     }
                     AsyncRequest::UploadCompleted { uploaded_count } => {
-                        // Subtract the number of recordings that were just uploaded from the queue
                         let prev_count = app_state
                             .auto_upload_queue_count
                             .load(Ordering::SeqCst);
-                        let new_count = prev_count.saturating_sub(uploaded_count);
+
+                        // When a batch uploads nothing, the recordings in the queue
+                        // aren't ready yet (e.g. still being written). Clear the queue
+                        // to avoid a tight retry loop - the next recording completion
+                        // will trigger another upload attempt.
+                        let new_count = if uploaded_count == 0 {
+                            0
+                        } else {
+                            prev_count.saturating_sub(uploaded_count)
+                        };
 
                         tracing::info!(
                             "Upload completed: {} recordings uploaded, queue count {} -> {}",
@@ -485,6 +497,9 @@ async fn main(
                             prev_count,
                             new_count
                         );
+
+                        // Update queue count before triggering next batch
+                        set_auto_upload_queue_count(&app_state, new_count);
 
                         // If there are still queued recordings, start another upload batch
                         if new_count > 0 {
@@ -498,8 +513,6 @@ async fn main(
                                 .await
                                 .ok();
                         }
-
-                        set_auto_upload_queue_count(&app_state, new_count);
                     }
                     AsyncRequest::ClearAutoUploadQueue => {
                         let prev_count = app_state
