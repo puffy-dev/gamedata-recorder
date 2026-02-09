@@ -2025,5 +2025,30 @@
     "name": "QZSim-Win64-Shipping",
     "binaries": ["qzsim-win64-shipping"],
     "reason": "EnoughData"
+  },
+  {
+    "name": "Escape the Backrooms",
+    "binaries": ["backrooms-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "SurprisingMyNeighbors",
+    "binaries": ["surprisingmyneighbors"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "My Summer Car",
+    "binaries": ["mysummercar"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Bulletstorm: Full Clip Edition",
+    "binaries": ["stormgame-win64-shipping"],
+    "reason": "EnoughData"
+  },
+  {
+    "name": "Way of the Hunter",
+    "binaries": ["wayofthehunter-win64-shipping"],
+    "reason": "EnoughData"
   }
 ]
