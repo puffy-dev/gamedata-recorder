@@ -45,20 +45,51 @@ Use whichever gives you the best result for your use case. `START` is only usefu
 
 The very beginning of the recording bundle. This is when the recorder starts, but **not** when the video starts.
 
-**Args:** `{"inputs": {"keyboard": [...], "mouse": [], "gamepads": {...}}}`
+**Args:** `{"inputs": <Inputs>}`
 
-The `inputs` object contains the keys/buttons that were held down at the moment recording started:
-- `keyboard`: Array of virtual keycodes currently pressed
-- `mouse`: Array of mouse button codes currently pressed
-- `gamepads`: Map of gamepad ID to gamepad input state (if any gamepads connected)
+The `inputs` object contains the keys/buttons that were held down at the moment recording started. See [Inputs Structure](#inputs-structure) below.
 
 #### `END`
 
 The very end of the recording bundle.
 
-**Args:** `{"inputs": {"keyboard": [...], "mouse": [], "gamepads": {...}}}`
+**Args:** `{"inputs": <Inputs>}`
 
 Same structure as `START` - contains the keys/buttons held down when recording ended.
+
+#### Inputs Structure
+
+The `inputs` object in `START` and `END` events has the following structure:
+
+```json
+{
+  "keyboard": [16, 65],
+  "mouse": [1],
+  "gamepads": {
+    "XInput:0": {
+      "digital": [1, 4],
+      "analog": {"9": 0.75, "10": 0.5},
+      "axis": {"1": -0.5, "2": 0.25}
+    }
+  }
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `keyboard` | `u16[]` | Virtual keycodes of keyboard keys currently held down |
+| `mouse` | `u16[]` | Virtual keycodes of mouse buttons currently held down |
+| `gamepads` | `Map<string, GamepadInputs>` | Map of gamepad ID to its input state (omitted if empty) |
+
+**GamepadInputs structure:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `digital` | `u16[]` | Button codes of digital buttons currently held down |
+| `analog` | `Map<string, f32>` | Button code to analog value (0.0-1.0) for analog buttons (e.g., triggers) |
+| `axis` | `Map<string, f32>` | Axis code to value (-1.0 to 1.0) for analog sticks |
+
+**Gamepad IDs** are strings in the format `"XInput:<n>"` or `"WGI:<n>"` where `<n>` is the device index. XInput is used for Xbox controllers, WGI (Windows.Gaming.Input) for PlayStation controllers.
 
 #### `VIDEO_START`
 
