@@ -919,7 +919,12 @@ impl State {
         // AUTO-RECORD: If idle and a recordable game is in the foreground, start recording automatically.
         // This is the core "zero configuration" experience — user just plays games, recording happens.
         if self.recording_state == RecordingState::Idle {
-            let fg = self.app_state.last_foregrounded_game.read().unwrap().clone();
+            let fg = self
+                .app_state
+                .last_foregrounded_game
+                .read()
+                .unwrap()
+                .clone();
             if let Some(ref game) = fg
                 && game.is_recordable()
                 && game.exe_name.is_some()
@@ -1486,7 +1491,10 @@ async fn check_for_updates(app_state: Arc<AppState>) -> Result<()> {
         ))
         .header("Accept", "application/vnd.github+json")
         .header("X-GitHub-Api-Version", "2022-11-28")
-        .header("User-Agent", format!("GameData Recorder v{current_version}"))
+        .header(
+            "User-Agent",
+            format!("GameData Recorder v{current_version}"),
+        )
         .send()
         .await
         .context("Failed to get releases from GitHub")?
