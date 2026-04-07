@@ -916,6 +916,25 @@ impl State {
             }
         }
 
+        // AUTO-RECORD: If idle and a recordable game is in the foreground, start recording automatically.
+        // This is the core "zero configuration" experience — user just plays games, recording happens.
+        if self.recording_state == RecordingState::Idle {
+            let fg = self.app_state.last_foregrounded_game.read().unwrap().clone();
+            if let Some(ref game) = fg
+                && game.is_recordable()
+                && game.exe_name.is_some()
+                && !self.app_state.is_out_of_date.load(Ordering::SeqCst)
+            {
+                tracing::info!(
+                    game = ?game.exe_name,
+                    "Recordable game detected in foreground, auto-starting recording"
+                );
+                if let Err(e) = self.handle_transition(RecordingState::Recording).await {
+                    tracing::error!(e=?e, "Failed to auto-start recording");
+                }
+            }
+        }
+
         // Remember to poll the recorder for its own internal work
         self.recorder.poll().await;
     }
