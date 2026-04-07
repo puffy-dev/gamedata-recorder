@@ -62,14 +62,23 @@ fn validate_folder_impl(path: &Path) -> Result<ValidationResult, Vec<String>> {
     else {
         return Err(vec![format!("No MP4 file found in {}", path.display())]);
     };
-    let csv_path = path.join(constants::filename::recording::INPUTS);
-    if !csv_path.is_file() {
-        return Err(vec![format!(
-            "No CSV file found in {} (expected {})",
-            path.display(),
-            csv_path.display()
-        )]);
-    }
+    // Support both new .jsonl and legacy .csv input files
+    let input_path = path.join(constants::filename::recording::INPUTS);
+    let csv_path = if input_path.is_file() {
+        input_path
+    } else {
+        // Fall back to legacy CSV format for older recordings
+        let legacy_path = path.join(constants::filename::recording::INPUTS_LEGACY_CSV);
+        if !legacy_path.is_file() {
+            return Err(vec![format!(
+                "No input file found in {} (expected {} or {})",
+                path.display(),
+                constants::filename::recording::INPUTS,
+                constants::filename::recording::INPUTS_LEGACY_CSV,
+            )]);
+        }
+        legacy_path
+    };
     let meta_path = path.join(constants::filename::recording::METADATA);
     if !meta_path.is_file() {
         return Err(vec![format!(

@@ -9,8 +9,9 @@ mod user_upload;
 pub use user_upload::*;
 
 static API_BASE_URL: LazyLock<String> = LazyLock::new(|| {
-    let url = std::env::var("OWL_CONTROL_API_URL")
-        .unwrap_or_else(|_| "https://owl-control.over.world".to_string());
+    let url = std::env::var("GAMEDATA_API_URL")
+        .or_else(|_| std::env::var("OWL_CONTROL_API_URL")) // backward compat
+        .unwrap_or_else(|_| "https://api.gamedatalabs.com".to_string());
     url.trim_end_matches('/').to_string()
 });
 

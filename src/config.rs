@@ -187,7 +187,7 @@ pub fn get_persistent_dir() -> Result<PathBuf> {
     tracing::debug!("get_persistent_dir() called");
     let dir = dirs::data_dir()
         .ok_or_else(|| eyre!("Could not find user data directory"))?
-        .join("OWL Control");
+        .join("GameData Recorder");
     fs::create_dir_all(&dir)?;
     tracing::debug!("Persistent dir: {:?}", dir);
     Ok(dir)

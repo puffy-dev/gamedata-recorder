@@ -28,7 +28,7 @@ use crate::system::ensure_single_instance::ensure_single_instance;
 
 fn main() -> Result<()> {
     // Set up logging, including to file
-    let log_path = config::get_persistent_dir()?.join("owl-control-debug.log");
+    let log_path = config::get_persistent_dir()?.join("gamedata-recorder-debug.log");
     let log_file = std::fs::OpenOptions::new()
         .create(true)
         .append(true)
@@ -65,7 +65,7 @@ fn main() -> Result<()> {
     tracing::debug!("Logging initialized, writing to {:?}", log_path);
 
     tracing::info!(
-        "OWL Control v{} ({})",
+        "GameData Recorder v{} ({})",
         env!("CARGO_PKG_VERSION"),
         git_version::git_version!()
     );

@@ -74,8 +74,10 @@ pub mod filename {
         pub const UPLOAD_PROGRESS: &str = ".upload-progress";
         /// The video recording file
         pub const VIDEO: &str = "recording.mp4";
-        /// The input recording file
-        pub const INPUTS: &str = "inputs.csv";
+        /// The input recording file (JSON Lines format for buyer spec compliance)
+        pub const INPUTS: &str = "inputs.jsonl";
+        /// Legacy CSV input file (for backward compatibility with older recordings)
+        pub const INPUTS_LEGACY_CSV: &str = "inputs.csv";
         /// The metadata file
         pub const METADATA: &str = "metadata.json";
     }

@@ -29,8 +29,8 @@ If you agree to participate our software will:
 
 ## Potential Risks
 
-- Using OWL Control in multiplayer games may result in account bans, as anti-cheat systems may flag it as suspicious software
-- We strongly recommend using OWL Control only in single-player games to avoid potential issues
+- Using GameData Recorder in multiplayer games may result in account bans, as anti-cheat systems may flag it as suspicious software
+- We strongly recommend using GameData Recorder only in single-player games to avoid potential issues
 
 ## Voluntary Participation
 

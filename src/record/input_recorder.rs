@@ -5,9 +5,29 @@ use color_eyre::{
     eyre::{WrapErr as _, eyre},
 };
 use input_capture::InputCapture;
+use serde::Serialize;
 use tokio::{fs::File, io::AsyncWriteExt as _, sync::mpsc};
 
 use crate::output_types::{InputEvent, InputEventType};
+
+/// JSON-serializable input event for buyer spec compliance.
+/// Each event is written as a JSON Lines entry (one JSON object per line).
+#[derive(Serialize)]
+struct JsonInputEvent {
+    timestamp: f64,
+    event_type: &'static str,
+    event_args: serde_json::Value,
+}
+
+impl From<&InputEvent> for JsonInputEvent {
+    fn from(event: &InputEvent) -> Self {
+        Self {
+            timestamp: event.timestamp,
+            event_type: event.event.id(),
+            event_args: event.event.json_args(),
+        }
+    }
+}
 
 /// Stream for sending timestamped input events to the writer
 #[derive(Clone)]
@@ -46,7 +66,7 @@ impl InputEventWriter {
         let stream = InputEventStream { tx };
         let mut writer = Self { file, rx };
 
-        writer.write_header().await?;
+        // No header needed for JSON Lines format — each line is self-describing
         writer
             .write_entry(InputEvent::new_at_now(InputEventType::Start {
                 inputs: input_capture.active_input(),
@@ -84,14 +104,12 @@ impl InputEventWriter {
         .await
     }
 
-    async fn write_header(&mut self) -> Result<()> {
-        const HEADER: &str = "timestamp,event_type,event_args\n";
-        self.file.write_all(HEADER.as_bytes()).await?;
-        Ok(())
-    }
-
     async fn write_entry(&mut self, event: InputEvent) -> Result<()> {
-        let line = format!("{event}\n");
+        // JSON Lines format: one JSON object per line (buyer spec compliant)
+        let json_event = JsonInputEvent::from(&event);
+        let mut line = serde_json::to_string(&json_event)
+            .wrap_err("failed to serialize input event to JSON")?;
+        line.push('\n');
         self.file
             .write_all(line.as_bytes())
             .await

@@ -26,7 +26,7 @@ pub fn error_message_box(body: &str) {
         let result = MessageBoxW(
             parent,
             &HSTRING::from(body),
-            &HSTRING::from("OWL Control - Error"),
+            &HSTRING::from("GameData Recorder - Error"),
             MB_ICONERROR | MB_TOPMOST | MB_SETFOREGROUND,
         );
         // Ensure the message box window gets focus
@@ -42,7 +42,7 @@ pub fn warning_message_box(body: &str) {
         let result = MessageBoxW(
             parent,
             &HSTRING::from(body),
-            &HSTRING::from("OWL Control - Warning"),
+            &HSTRING::from("GameData Recorder - Warning"),
             MB_ICONWARNING | MB_TOPMOST | MB_SETFOREGROUND,
         );
         // Ensure the message box window gets focus

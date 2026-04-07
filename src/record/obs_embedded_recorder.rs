@@ -202,6 +202,12 @@ struct RecordingRequest {
 
 pub fn vet_to_obs_vet(vet: VideoEncoderType) -> ObsVideoEncoderType {
     match vet {
+        // HEVC (H.265) encoders — preferred for GameData Labs buyer spec
+        VideoEncoderType::X265 => ObsVideoEncoderType::OBS_X265,
+        VideoEncoderType::NvEncHevc => ObsVideoEncoderType::FFMPEG_HEVC_NVENC,
+        VideoEncoderType::AmfHevc => ObsVideoEncoderType::HEVC_TEXTURE_AMF,
+        VideoEncoderType::QsvHevc => ObsVideoEncoderType::OBS_QSV11_AV1, // TODO: verify HEVC QSV enum in libobs-rs
+        // H.264 fallback encoders
         VideoEncoderType::X264 => ObsVideoEncoderType::OBS_X264,
         VideoEncoderType::NvEnc => ObsVideoEncoderType::OBS_NVENC_H264_TEX,
         VideoEncoderType::Amf => ObsVideoEncoderType::H264_TEXTURE_AMF,
@@ -211,6 +217,11 @@ pub fn vet_to_obs_vet(vet: VideoEncoderType) -> ObsVideoEncoderType {
 
 pub fn obs_vet_to_vet(vet: &ObsVideoEncoderType) -> Option<VideoEncoderType> {
     match vet {
+        // HEVC encoders
+        ObsVideoEncoderType::OBS_X265 => Some(VideoEncoderType::X265),
+        ObsVideoEncoderType::FFMPEG_HEVC_NVENC => Some(VideoEncoderType::NvEncHevc),
+        ObsVideoEncoderType::HEVC_TEXTURE_AMF => Some(VideoEncoderType::AmfHevc),
+        // H.264 encoders
         ObsVideoEncoderType::OBS_X264 => Some(VideoEncoderType::X264),
         ObsVideoEncoderType::OBS_NVENC_H264_TEX => Some(VideoEncoderType::NvEnc),
         ObsVideoEncoderType::H264_TEXTURE_AMF => Some(VideoEncoderType::Amf),
@@ -781,7 +792,7 @@ fn prepare_source(
             if GameCaptureSourceBuilder::is_window_in_use_by_other_instance(window.pid)? {
                 // We should only check this if we're creating a new source, as "another process" could be us otherwise
                 bail!(
-                    "The window you're trying to record ({game_exe}) is already being captured by another process. Do you have OBS or another instance of OWL Control open?\n\nNote that OBS is no longer required to use OWL Control - please close it if you have it running!",
+                    "The window you're trying to record ({game_exe}) is already being captured by another process. Do you have OBS or another instance of GameData Recorder open?\n\nNote that OBS is no longer required to use GameData Recorder - please close it if you have it running!",
                 );
             }
 

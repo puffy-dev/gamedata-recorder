@@ -18,7 +18,8 @@ pub struct InitMultipartUploadArgs<'a> {
     pub video_fps: Option<f32>,
     pub chunk_size_bytes: Option<u64>,
     pub additional_metadata: serde_json::Value,
-    pub uploading_owl_control_version: Option<&'a str>,
+    #[serde(alias = "uploading_owl_control_version")]
+    pub uploading_recorder_version: Option<&'a str>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -102,7 +103,7 @@ impl ApiClient {
             additional_metadata: Option<serde_json::Value>,
 
             #[serde(skip_serializing_if = "Option::is_none")]
-            uploading_owl_control_version: Option<&'a str>,
+            uploading_recorder_version: Option<&'a str>,
 
             uploader_hwid: &'a str,
             upload_timestamp: &'a str,
@@ -135,7 +136,7 @@ impl ApiClient {
 
                 additional_metadata: Some(args.additional_metadata),
 
-                uploading_owl_control_version: args.uploading_owl_control_version,
+                uploading_recorder_version: args.uploading_recorder_version,
 
                 uploader_hwid: args.hardware_id,
                 upload_timestamp: &chrono::Local::now().to_rfc3339(),

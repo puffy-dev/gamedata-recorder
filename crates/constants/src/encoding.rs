@@ -1,30 +1,64 @@
 use serde::{Deserialize, Serialize};
 
-/// Supported video encoder types
+/// Supported video encoder types — HEVC (H.265) preferred for GameData Labs buyer spec
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum VideoEncoderType {
+    X265,
     X264,
+    NvEncHevc,
     NvEnc,
+    AmfHevc,
     Amf,
+    QsvHevc,
     Qsv,
 }
 impl std::fmt::Display for VideoEncoderType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            VideoEncoderType::X264 => write!(f, "OBS x264 (CPU)"),
-            VideoEncoderType::NvEnc => write!(f, "NVIDIA NVENC (GPU)"),
-            VideoEncoderType::Amf => write!(f, "AMD HW H.264 (AVC)"),
-            VideoEncoderType::Qsv => write!(f, "QuickSync H.264"),
+            VideoEncoderType::X265 => write!(f, "OBS x265 (CPU, HEVC)"),
+            VideoEncoderType::X264 => write!(f, "OBS x264 (CPU, H.264)"),
+            VideoEncoderType::NvEncHevc => write!(f, "NVIDIA NVENC (GPU, HEVC)"),
+            VideoEncoderType::NvEnc => write!(f, "NVIDIA NVENC (GPU, H.264)"),
+            VideoEncoderType::AmfHevc => write!(f, "AMD HW (GPU, HEVC)"),
+            VideoEncoderType::Amf => write!(f, "AMD HW (GPU, H.264)"),
+            VideoEncoderType::QsvHevc => write!(f, "QuickSync (GPU, HEVC)"),
+            VideoEncoderType::Qsv => write!(f, "QuickSync (GPU, H.264)"),
         }
     }
 }
 impl VideoEncoderType {
     pub fn id(&self) -> &str {
         match self {
+            VideoEncoderType::X265 => "x265",
             VideoEncoderType::X264 => "x264",
+            VideoEncoderType::NvEncHevc => "nvenc_hevc",
             VideoEncoderType::NvEnc => "nvenc",
+            VideoEncoderType::AmfHevc => "amf_hevc",
             VideoEncoderType::Amf => "amf",
+            VideoEncoderType::QsvHevc => "qsv_hevc",
             VideoEncoderType::Qsv => "qsv",
+        }
+    }
+
+    /// Whether this encoder produces HEVC (H.265) output
+    pub fn is_hevc(&self) -> bool {
+        matches!(
+            self,
+            VideoEncoderType::X265
+                | VideoEncoderType::NvEncHevc
+                | VideoEncoderType::AmfHevc
+                | VideoEncoderType::QsvHevc
+        )
+    }
+
+    /// Get the H.264 fallback for a HEVC encoder
+    pub fn h264_fallback(&self) -> Self {
+        match self {
+            VideoEncoderType::X265 => VideoEncoderType::X264,
+            VideoEncoderType::NvEncHevc => VideoEncoderType::NvEnc,
+            VideoEncoderType::AmfHevc => VideoEncoderType::Amf,
+            VideoEncoderType::QsvHevc => VideoEncoderType::Qsv,
+            other => *other,
         }
     }
 }
@@ -49,11 +83,14 @@ pub const AMF_PRESETS: &[&str] = &["quality", "balanced", "speed"];
 /// both are the same
 pub const NVENC_TUNE_OPTIONS: &[&str] = &["hq", "ll", "ull"];
 
-/// We lock to the high profile for now. Other profiles are not of much use to us.
-pub const VIDEO_PROFILE: &str = "high";
+/// H.265 profile for HEVC encoders (buyer spec: main profile)
+pub const HEVC_VIDEO_PROFILE: &str = "main";
 
-/// Bitrate (kbps)
-pub const BITRATE: i64 = 4777;
+/// H.264 profile (legacy fallback)
+pub const H264_VIDEO_PROFILE: &str = "high";
+
+/// Bitrate (kbps) — buyer spec: 8-12 Mbps for 1080p30 HEVC
+pub const BITRATE: i64 = 10_000;
 
 /// Rate control
 pub const RATE_CONTROL: &str = "CBR";

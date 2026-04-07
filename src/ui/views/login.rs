@@ -19,7 +19,7 @@ impl App {
 
                     // Main heading with better styling
                     ui.heading(
-                        RichText::new("Welcome to OWL Control")
+                        RichText::new("Welcome to GameData Recorder")
                             .size(28.0)
                             .strong()
                             .color(Color32::from_rgb(220, 220, 220)),

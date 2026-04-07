@@ -202,7 +202,7 @@ pub async fn upload_folder(
                         None
                     },
                     additional_metadata: serde_json::to_value(&validation.metadata)?,
-                    uploading_owl_control_version: Some(env!("CARGO_PKG_VERSION")),
+                    uploading_recorder_version: Some(env!("CARGO_PKG_VERSION")),
                 },
             )
             .await

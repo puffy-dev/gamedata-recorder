@@ -715,8 +715,8 @@ fn obs_running_warning(ui: &mut Ui) {
 
                 ui.label(
                     RichText::new(
-                        "OBS Studio is currently running and may conflict with OWL Control. \
-                         Please close OBS Studio before using OWL Control for the best experience.",
+                        "OBS Studio is currently running and may conflict with GameData Recorder. \
+                         Please close OBS Studio before using GameData Recorder for the best experience.",
                     )
                     .size(14.0)
                     .color(Color32::WHITE),

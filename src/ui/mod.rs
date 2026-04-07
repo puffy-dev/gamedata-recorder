@@ -195,9 +195,9 @@ impl WinitApp {
     fn title(recording: bool) -> String {
         let version = env!("CARGO_PKG_VERSION");
         if recording {
-            format!("OWL Control v{version} | Recording")
+            format!("GameData Recorder v{version} | Recording")
         } else {
-            format!("OWL Control v{version}")
+            format!("GameData Recorder v{version}")
         }
     }
 }

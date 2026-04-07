@@ -136,7 +136,7 @@ impl Recorder {
         let recording_location = (self.recording_dir)();
 
         let local_recording = LocalRecording::create_at(&recording_location)
-            .wrap_err("Failed to create directory for recording. Did you install OWL Control to a location where your account is allowed to write files?")?;
+            .wrap_err("Failed to create directory for recording. Did you install GameData Recorder to a location where your account is allowed to write files?")?;
 
         struct DeleteRecordingOnExit(Option<LocalRecording>);
         impl Drop for DeleteRecordingOnExit {

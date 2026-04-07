@@ -571,8 +571,8 @@ impl LocalRecording {
         let metadata = Metadata {
             game_exe,
             game_resolution: Some(game_resolution),
-            owl_control_version: Some(env!("CARGO_PKG_VERSION").to_string()),
-            owl_control_commit: Some(
+            recorder_version: Some(env!("CARGO_PKG_VERSION").to_string()),
+            recorder_commit: Some(
                 git_version::git_version!(
                     args = ["--abbrev=40", "--always", "--dirty=-modified"],
                     fallback = "unknown"

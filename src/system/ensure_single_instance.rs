@@ -11,7 +11,7 @@ pub fn ensure_single_instance() -> eyre::Result<()> {
         core::PCWSTR,
     };
 
-    let mutex_name = "OWL-Control-SingleInstance";
+    let mutex_name = "GameData-Recorder-SingleInstance";
     let mutex_name_wide: Vec<u16> = mutex_name
         .encode_utf16()
         .chain(std::iter::once(0))
@@ -43,10 +43,10 @@ pub fn ensure_single_instance() -> eyre::Result<()> {
                 use crate::ui::notification::error_message_box;
 
                 error_message_box(concat!(
-                    "Another instance of OWL Control is already running.\n\n",
+                    "Another instance of GameData Recorder is already running.\n\n",
                     "Only one instance can run at a time."
                 ));
-                eyre::bail!("Another instance of OWL Control is already running.");
+                eyre::bail!("Another instance of GameData Recorder is already running.");
             }
             _ => {
                 tracing::warn!("Unexpected error during single instance check");

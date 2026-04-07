@@ -773,7 +773,7 @@ impl State {
             (RecordingState::Idle, key) if key == start_key => {
                 if self.app_state.is_out_of_date.load(Ordering::SeqCst) {
                     error_message_box(concat!(
-                        "You are using an outdated version of OWL Control. ",
+                        "You are using an outdated version of GameData Recorder. ",
                         "Please update to the latest version to continue.\n\n",
                         "Recording and uploading will be blocked until you update."
                     ));
@@ -881,13 +881,13 @@ impl State {
 
                     let message = format!(
                         "Failed to hook into {}.\n\n\
-                     OWL Control was unable to capture the game window after {} seconds.\n\n\
+                     GameData Recorder was unable to capture the game window after {} seconds.\n\n\
                      This may happen if:\n\
                      - The game has anti-cheat software\n\
                      - The game is running with elevated privileges\n\
                      - The game uses a rendering method that OBS cannot capture\n\n\
                      Please try:\n\
-                     - Running OWL Control as administrator\n\
+                     - Running GameData Recorder as administrator\n\
                      - Checking if the game is on the supported games list\n\
                      - Testing a different game on the supported games list",
                         game_name,
@@ -1263,7 +1263,7 @@ fn get_foregrounded_game(
         Some(unsupported.reason.to_string())
     } else if !recorder.is_window_capturable(hwnd) {
         Some(
-            "Recorder cannot capture this window. Try running OWL Control in admin mode."
+            "Recorder cannot capture this window. Try running GameData Recorder in admin mode."
                 .to_string(),
         )
     } else {
@@ -1467,7 +1467,7 @@ async fn check_for_updates(app_state: Arc<AppState>) -> Result<()> {
         ))
         .header("Accept", "application/vnd.github+json")
         .header("X-GitHub-Api-Version", "2022-11-28")
-        .header("User-Agent", format!("OWL Control v{current_version}"))
+        .header("User-Agent", format!("GameData Recorder v{current_version}"))
         .send()
         .await
         .context("Failed to get releases from GitHub")?

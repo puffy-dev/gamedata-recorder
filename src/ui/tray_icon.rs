@@ -48,7 +48,7 @@ impl TrayIconState {
         tracing::debug!("Building tray icon");
         let tray_icon = TrayIconBuilder::new()
             .with_icon(default_tray_icon_data.clone())
-            .with_tooltip("OWL Control")
+            .with_tooltip("GameData Recorder")
             .with_menu(Box::new(tray_menu))
             .build()?;
         tracing::debug!("Tray icon built successfully");

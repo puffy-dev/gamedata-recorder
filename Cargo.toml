@@ -53,7 +53,7 @@ libobs-simple = { git = "https://github.com/libobs-rs/libobs-rs.git" }
 libobs-window-helper = { git = "https://github.com/libobs-rs/libobs-rs.git" }
 
 [package]
-name = "owl-control"
+name = "gamedata-recorder"
 version.workspace = true
 edition = "2024"
 
