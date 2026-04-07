@@ -17,6 +17,7 @@ use crate::{
     system::hardware_specs,
 };
 
+use super::fps_logger::FpsLogger;
 use super::local_recording::LocalRecording;
 
 /// Parameters for starting a recording
@@ -32,6 +33,7 @@ pub(crate) struct RecordingParams {
 pub(crate) struct Recording {
     input_writer: InputEventWriter,
     input_stream: InputEventStream,
+    fps_logger: FpsLogger,
 
     recording_location: PathBuf,
     game_exe: String,
@@ -86,6 +88,7 @@ impl Recording {
         Ok(Self {
             input_writer,
             input_stream,
+            fps_logger: FpsLogger::new(),
             recording_location,
             game_exe,
             game_resolution,
@@ -163,6 +166,8 @@ impl Recording {
 
     pub(crate) fn update_fps(&mut self, fps: f64) {
         self.average_fps = self.average_fps.map(|f| (f + fps) / 2.0).or(Some(fps));
+        // Feed frame timing data to the per-second FPS logger
+        self.fps_logger.on_frame();
     }
 
     pub(crate) async fn stop(
@@ -174,6 +179,11 @@ impl Recording {
         let window_name = self.get_window_name();
         let mut result = recorder.stop_recording().await;
         self.input_writer.stop(input_capture).await?;
+
+        // Save per-second FPS log (buyer spec requirement)
+        if let Err(e) = self.fps_logger.save(&self.recording_location).await {
+            tracing::warn!("Failed to save FPS log: {e}");
+        }
 
         #[allow(clippy::collapsible_if)]
         if result.is_ok() {

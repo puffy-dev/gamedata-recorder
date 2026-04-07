@@ -1,3 +1,4 @@
+pub(crate) mod fps_logger;
 mod input_recorder;
 mod local_recording;
 mod obs_embedded_recorder;

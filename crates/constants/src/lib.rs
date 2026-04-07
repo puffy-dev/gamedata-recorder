@@ -80,6 +80,8 @@ pub mod filename {
         pub const INPUTS_LEGACY_CSV: &str = "inputs.csv";
         /// The metadata file
         pub const METADATA: &str = "metadata.json";
+        /// Per-second FPS log (buyer spec requirement)
+        pub const FPS_LOG: &str = "fps_log.json";
     }
 
     pub mod persistent {
