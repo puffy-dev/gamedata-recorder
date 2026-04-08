@@ -34,7 +34,53 @@ app.add_middleware(
     allow_credentials=True,
 )
 
+# --- Global Exception Handler ---
+
+from fastapi import Request
+from fastapi.responses import JSONResponse
+import traceback
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger(__name__)
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """Handle all unhandled exceptions."""
+    error_id = str(uuid.uuid4())[:8]
+    logger.error(f"Unhandled exception [{error_id}]: {str(exc)}")
+    logger.error(traceback.format_exc())
+
+    # In production, don't expose internal details
+    if ENVIRONMENT == "production":
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": "Internal server error",
+                "error_id": error_id,
+                "message": "An unexpected error occurred. Please try again later.",
+            },
+        )
+    else:
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": "Internal server error",
+                "error_id": error_id,
+                "message": str(exc),
+                "traceback": traceback.format_exc().split("\n")[-5:],  # Last 5 lines
+            },
+        )
+
+
 # --- Config ---
+
+# Environment setting - must be set early for validation
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
 S3_BUCKET = os.getenv("S3_BUCKET", "gamedata-recordings")
 S3_REGION = os.getenv("S3_REGION", "us-east-1")
@@ -42,6 +88,77 @@ AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 DATA_DIR = Path(os.getenv("DATA_DIR", "./data"))
 DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+# --- Startup Configuration Validation ---
+
+
+def validate_startup_config():
+    """Validate critical configuration on startup."""
+    errors = []
+    warnings_list = []
+
+    # Check data directory
+    if not DATA_DIR.exists():
+        errors.append(f"Data directory does not exist: {DATA_DIR}")
+    elif not os.access(DATA_DIR, os.W_OK):
+        errors.append(f"Data directory is not writable: {DATA_DIR}")
+
+    # Check API_SECRET in production
+    if ENVIRONMENT == "production":
+        if not os.getenv("API_SECRET"):
+            errors.append("API_SECRET environment variable is required in production")
+        elif len(API_SECRET) < 32:
+            errors.append("API_SECRET must be at least 32 characters long")
+
+    # Check CORS in production
+    if ENVIRONMENT == "production":
+        default_origins = ["http://localhost:3000", "http://localhost:8080"]
+        if any(origin in ALLOWED_ORIGINS for origin in default_origins):
+            warnings_list.append(
+                "CORS allows localhost origins in production - restrict to actual domains"
+            )
+
+    # Check S3 configuration
+    if AWS_ACCESS_KEY and not AWS_SECRET_KEY:
+        warnings_list.append(
+            "AWS_ACCESS_KEY_ID set but AWS_SECRET_ACCESS_KEY is missing"
+        )
+    if AWS_SECRET_KEY and not AWS_ACCESS_KEY:
+        warnings_list.append(
+            "AWS_SECRET_ACCESS_KEY set but AWS_ACCESS_KEY_ID is missing"
+        )
+
+    # Print startup banner
+    print(f"\n{'=' * 60}")
+    print(f"🎮 GameData Labs Backend v0.1.0")
+    print(f"{'=' * 60}")
+    print(f"Environment: {ENVIRONMENT}")
+    print(f"Data Directory: {DATA_DIR}")
+    print(
+        f"API Secret: {'✅ Configured' if os.getenv('API_SECRET') else '⚠️ Using temporary (dev only)'}"
+    )
+    print(
+        f"S3 Storage: {'✅ Configured' if (AWS_ACCESS_KEY and AWS_SECRET_KEY) else '⚠️ Local storage only'}"
+    )
+    print(f"CORS Origins: {len(ALLOWED_ORIGINS)} origin(s) allowed")
+
+    if warnings_list:
+        print(f"\n⚠️  Warnings:")
+        for w in warnings_list:
+            print(f"   - {w}")
+
+    if errors:
+        print(f"\n❌ Configuration Errors:")
+        for e in errors:
+            print(f"   - {e}")
+        print(f"{'=' * 60}\n")
+        raise RuntimeError(f"Startup validation failed with {len(errors)} error(s)")
+
+    print(f"{'=' * 60}\n")
+
+
+# Run validation on module load
+validate_startup_config()
 
 # --- Simple file-based storage (replace with PostgreSQL for production) ---
 
@@ -77,16 +194,28 @@ def list_records(collection: str) -> list[dict]:
 # SECURITY: API_SECRET must be set in environment variable for production
 # Generate a secure secret with: openssl rand -hex 32
 API_SECRET = os.getenv("API_SECRET")
+
 if not API_SECRET:
     import secrets
-    import warnings
 
-    warnings.warn(
-        "API_SECRET not set! Using a temporary random secret. "
-        "Set API_SECRET environment variable for production!",
-        RuntimeWarning,
-    )
-    API_SECRET = secrets.token_hex(32)
+    # Development mode: allow temporary secret with clear warning
+    if ENVIRONMENT == "development":
+        temp_secret = secrets.token_hex(32)
+        print(f"\n{'=' * 60}")
+        print("⚠️  WARNING: API_SECRET not set!")
+        print(f"{'=' * 60}")
+        print("Using temporary secret for DEVELOPMENT ONLY.")
+        print("Set API_SECRET environment variable for production:")
+        print(f"  export API_SECRET={temp_secret}")
+        print(f"{'=' * 60}\n")
+        API_SECRET = temp_secret
+    else:
+        # Production mode: hard fail
+        raise RuntimeError(
+            "API_SECRET environment variable is required for production!\n"
+            "Generate one with: openssl rand -hex 32\n"
+            "Then set: export API_SECRET=<your-secret>"
+        )
 
 
 def generate_token(user_id: str) -> str:
@@ -183,7 +312,28 @@ class UploadCompleteRequest(BaseModel):
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "version": "0.1.0"}
+    """Health check endpoint with configuration status."""
+    # Check critical configuration
+    config_status = {
+        "api_secret_configured": bool(os.getenv("API_SECRET")),
+        "environment": ENVIRONMENT,
+        "data_dir_writable": DATA_DIR.exists() and os.access(DATA_DIR, os.W_OK),
+        "s3_configured": bool(AWS_ACCESS_KEY and AWS_SECRET_KEY),
+    }
+
+    # In production, require API_SECRET to be explicitly set
+    if ENVIRONMENT == "production" and not config_status["api_secret_configured"]:
+        raise HTTPException(
+            status_code=503,
+            detail="Service not properly configured: API_SECRET required in production",
+        )
+
+    return {
+        "status": "ok",
+        "version": "0.1.0",
+        "environment": ENVIRONMENT,
+        "config": config_status,
+    }
 
 
 # OWL Control compat: /api/v1/user/info
