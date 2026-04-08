@@ -103,3 +103,5 @@ pub const PSYCHO_AQ: bool = true;
 
 /// Lookahead
 pub const LOOKAHEAD: bool = true;
+
+pub const VIDEO_PROFILE: &str = "high";

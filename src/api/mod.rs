@@ -1,7 +1,6 @@
 use std::sync::LazyLock;
 
-use serde::Deserialize;
-
+use serde::{Deserialize, Serialize};
 mod multipart_upload;
 pub use multipart_upload::*;
 

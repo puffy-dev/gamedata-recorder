@@ -1,4 +1,4 @@
-use color_eyre::eyre::{Context, Result, eyre};
+use color_eyre::eyre::{eyre, Context, Result};
 use constants::encoding::VideoEncoderType;
 use serde::{Deserialize, Deserializer, Serialize};
 use std::{collections::HashMap, fs, path::PathBuf};
@@ -301,10 +301,18 @@ impl EncoderSettings {
             .set_bool("lookahead", constants::encoding::LOOKAHEAD);
 
         updater = match self.encoder {
-            VideoEncoderType::X264 => self.x264.apply_to_data_updater(updater),
-            VideoEncoderType::NvEnc => self.nvenc.apply_to_data_updater(updater),
-            VideoEncoderType::Amf => self.amf.apply_to_data_updater(updater),
-            VideoEncoderType::Qsv => self.qsv.apply_to_data_updater(updater),
+            VideoEncoderType::X265 | VideoEncoderType::X264 => {
+                self.x264.apply_to_data_updater(updater)
+            }
+            VideoEncoderType::NvEncHevc | VideoEncoderType::NvEnc => {
+                self.nvenc.apply_to_data_updater(updater)
+            }
+            VideoEncoderType::AmfHevc | VideoEncoderType::Amf => {
+                self.amf.apply_to_data_updater(updater)
+            }
+            VideoEncoderType::QsvHevc | VideoEncoderType::Qsv => {
+                self.qsv.apply_to_data_updater(updater)
+            }
         };
         updater.update()?;
 
