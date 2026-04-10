@@ -2,13 +2,13 @@ use serde::{Deserialize, Serialize};
 
 use crate::api::{API_BASE_URL, ApiClient, ApiError, check_for_response_success};
 
-#[derive(Default, Debug, Clone)]
+#[derive(Default, Debug, Clone, Deserialize, Serialize)]
 #[allow(unused)]
 pub struct InitMultipartUploadArgs<'a> {
     pub filename: &'a str,
     pub total_size_bytes: u64,
     pub hardware_id: &'a str,
-    pub tags: Option<&'a [String]>,
+    pub tags: Option<Vec<String>>,
     pub video_filename: Option<&'a str>,
     pub control_filename: Option<&'a str>,
     pub video_duration_seconds: Option<f64>,
@@ -81,7 +81,7 @@ impl ApiClient {
             chunk_size_bytes: Option<u64>,
 
             #[serde(skip_serializing_if = "Option::is_none")]
-            tags: Option<&'a [String]>,
+            tags: Option<Vec<String>>,
 
             #[serde(skip_serializing_if = "Option::is_none")]
             video_filename: Option<&'a str>,

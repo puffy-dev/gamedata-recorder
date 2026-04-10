@@ -2104,6 +2104,58 @@ dependencies = [
 ]
 
 [[package]]
+name = "gamedata-recorder"
+version = "1.6.1"
+dependencies = [
+ "async-trait",
+ "backoff",
+ "catppuccin-egui",
+ "chrono",
+ "clap",
+ "color-eyre",
+ "constants",
+ "dirs 6.0.0",
+ "dunce",
+ "egui",
+ "egui-wgpu",
+ "egui-winit",
+ "egui_commonmark",
+ "egui_extras",
+ "egui_overlay",
+ "egui_render_three_d",
+ "egui_virtual_list",
+ "egui_window_glfw_passthrough",
+ "embed-manifest",
+ "futures",
+ "game-process",
+ "git-version",
+ "image",
+ "input-capture",
+ "libobs-simple",
+ "libobs-window-helper",
+ "libobs-wrapper",
+ "obws",
+ "opener",
+ "reqwest",
+ "rfd",
+ "rodio",
+ "serde",
+ "serde_json",
+ "sha256",
+ "steamlocate",
+ "sysinfo",
+ "tar",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "tracing-subscriber",
+ "tray-icon",
+ "uuid",
+ "windows 0.62.2",
+ "winit",
+]
+
+[[package]]
 name = "gdk"
 version = "0.18.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4488,58 +4540,6 @@ checksum = "9aa2b01e1d916879f73a53d01d1d6cee68adbb31d6d9177a8cfce093cced1d50"
 dependencies = [
  "futures-core",
  "pin-project-lite",
-]
-
-[[package]]
-name = "owl-control"
-version = "1.6.1"
-dependencies = [
- "async-trait",
- "backoff",
- "catppuccin-egui",
- "chrono",
- "clap",
- "color-eyre",
- "constants",
- "dirs 6.0.0",
- "dunce",
- "egui",
- "egui-wgpu",
- "egui-winit",
- "egui_commonmark",
- "egui_extras",
- "egui_overlay",
- "egui_render_three_d",
- "egui_virtual_list",
- "egui_window_glfw_passthrough",
- "embed-manifest",
- "futures",
- "game-process",
- "git-version",
- "image",
- "input-capture",
- "libobs-simple",
- "libobs-window-helper",
- "libobs-wrapper",
- "obws",
- "opener",
- "reqwest",
- "rfd",
- "rodio",
- "serde",
- "serde_json",
- "sha256",
- "steamlocate",
- "sysinfo",
- "tar",
- "tokio",
- "tokio-util",
- "tracing",
- "tracing-subscriber",
- "tray-icon",
- "uuid",
- "windows 0.62.2",
- "winit",
 ]
 
 [[package]]

@@ -811,10 +811,10 @@ fn encoder_settings_window(
         .collapsible(false)
         .resizable(false)
         .show(ctx, |ui| match encoder_settings.encoder {
-            VideoEncoderType::X264 => encoder_settings_x264(ui, &mut encoder_settings.x264),
-            VideoEncoderType::NvEnc => encoder_settings_nvenc(ui, &mut encoder_settings.nvenc),
-            VideoEncoderType::Amf => encoder_settings_amf(ui, &mut encoder_settings.amf),
-            VideoEncoderType::Qsv => encoder_settings_qsv(ui, &mut encoder_settings.qsv),
+            VideoEncoderType::X265 | VideoEncoderType::X264 => encoder_settings_x264(ui, &mut encoder_settings.x264),
+            VideoEncoderType::NvEncHevc | VideoEncoderType::NvEnc => encoder_settings_nvenc(ui, &mut encoder_settings.nvenc),
+            VideoEncoderType::AmfHevc | VideoEncoderType::Amf => encoder_settings_amf(ui, &mut encoder_settings.amf),
+            VideoEncoderType::QsvHevc | VideoEncoderType::Qsv => encoder_settings_qsv(ui, &mut encoder_settings.qsv),
         });
 }
 
