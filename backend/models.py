@@ -3,7 +3,7 @@ GameData Labs - Database Models
 SQLAlchemy async ORM models for PostgreSQL
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional, List
 from enum import Enum as PyEnum
 
@@ -43,6 +43,8 @@ class UploadStatus(str, PyEnum):
     """Upload processing status."""
 
     IN_PROGRESS = "in_progress"
+    VERIFYING = "verifying"
+    VERIFICATION_FAILED = "verification_failed"
     COMPLETED = "completed"
     FAILED = "failed"
     ABORTED = "aborted"
@@ -162,6 +164,15 @@ class Upload(Base):
     )
     game_control_id: Mapped[str] = mapped_column(String(36), index=True)
 
+    # Content hash for deduplication (Issue #1 fix)
+    content_hash: Mapped[Optional[str]] = mapped_column(
+        String(64), nullable=True, index=True
+    )
+    content_hash_algorithm: Mapped[Optional[str]] = mapped_column(
+        String(10), default="sha256"
+    )
+    s3_etag: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+
     # File info
     filename: Mapped[str] = mapped_column(String(255))
     original_filename: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
@@ -201,7 +212,7 @@ class Upload(Base):
     earnings_usd: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
 
     # Additional metadata (flexible JSON)
-    metadata: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
+    extra_metadata: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
 
     # Timestamps
     created_at: Mapped[datetime] = mapped_column(
@@ -209,10 +220,11 @@ class Upload(Base):
     )
     completed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
-    # Indexes for common queries
+    # Indexes for common queries and deduplication
     __table_args__ = (
         Index("idx_uploads_user_status", "user_id", "status"),
         Index("idx_uploads_created_at", "created_at"),
+        Index("idx_uploads_user_hash_created", "user_id", "content_hash", "created_at"),
     )
 
     # Relationship
@@ -292,7 +304,7 @@ class Game(Base):
     earnings_multiplier: Mapped[float] = mapped_column(Float, default=1.0)
 
     # Metadata
-    metadata: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
+    extra_metadata: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
 
     # Timestamps
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
