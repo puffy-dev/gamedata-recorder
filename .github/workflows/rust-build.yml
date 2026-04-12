@@ -55,8 +55,9 @@ jobs:
         with:
           name: gamedata-recorder-windows-x64
           path: |
-            dist/GameData Recorder.exe
+            dist/gamedata-recorder.exe
             dist/GameData-Recorder-Setup-*.exe
+            dist/gamedata-recorder-*.zip
 
   create-release:
     needs: build-windows
@@ -83,6 +84,7 @@ jobs:
         with:
           files: |
             artifacts/**/GameData-Recorder-Setup-*.exe
+            artifacts/**/*.zip
           draft: false
           prerelease: ${{ contains(github.ref_name, '-') }}
           generate_release_notes: true

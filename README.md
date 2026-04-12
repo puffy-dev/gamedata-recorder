@@ -63,12 +63,20 @@ Premium data (engine metadata from supported games) earns 2-4x more.
 
 ## Building from Source
 
+### Quick Start
 ```bash
-# Requires Windows + Rust toolchain + OBS SDK
+# Requires Windows + Rust toolchain
 git clone https://github.com/howardleegeek/gamedata-recorder.git
 cd gamedata-recorder
-cargo build --release
+.\build-resources\scripts\build.ps1
 ```
+
+### Manual Build
+See [BUILD.md](BUILD.md) for detailed build instructions, including:
+- Manual build steps if the script fails
+- Cross-compilation guidance
+- Troubleshooting common issues
+- Requirements and dependencies
 
 ## Credits
 
