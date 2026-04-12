@@ -97,7 +97,16 @@ $ZIP_FILE = "gamedata-recorder-${VERSION}-windows-x86_64.zip"
 if (Test-Path $ZIP_FILE) {
     Remove-Item -Path $ZIP_FILE -Force
 }
-Compress-Archive -Path "dist\*" -DestinationPath $ZIP_FILE -Force
+
+# Change to dist directory first, then compress everything (more reliable)
+$currentDir = Get-Location
+try {
+    Set-Location "dist"
+    Compress-Archive -Path ".\*" -DestinationPath "..\$ZIP_FILE" -Force
+}
+finally {
+    Set-Location $currentDir
+}
 Write-Status "Portable zip file created: $ZIP_FILE"
 
 Write-Status "Build completed successfully!"
