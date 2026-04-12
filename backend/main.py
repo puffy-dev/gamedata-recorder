@@ -11,19 +11,19 @@ import hmac
 import hashlib
 import json
 import re
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone, UTC
 from pathlib import Path
 from typing import Optional, List
 from contextlib import asynccontextmanager
 
 import boto3
 from fastapi import FastAPI, HTTPException, Header, Depends, Request, status
+from starlette.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from pydantic import BaseModel, EmailStr, Field, validator
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, desc, func, and_
-from passlib.context import CryptContext
 
 # Import models
 from models import (
@@ -42,8 +42,16 @@ from models import (
     create_async_session_factory,
 )
 
+def utcnow_naive() -> datetime:
+    """Get current UTC datetime as naive (for database compatibility)."""
+    return datetime.now(UTC).replace(tzinfo=None)
+
+def utcnow_aware() -> datetime:
+    """Get current UTC datetime as timezone-aware (for display)."""
+    return datetime.now(UTC)
+
 # Security
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+import bcrypt
 security = HTTPBearer(auto_error=False)
 
 # Environment
@@ -62,9 +70,22 @@ if not DATABASE_URL:
         f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     )
 
-# Create database engine and session factory
-db_engine = create_async_db_engine(DATABASE_URL)
-SessionLocal = create_async_session_factory(db_engine)
+# Database engine and session factory (lazy initialized)
+db_engine = None
+SessionLocal = None
+
+def get_db_engine():
+    """Get or create database engine."""
+    global db_engine, SessionLocal
+    if db_engine is None:
+        db_engine = create_async_db_engine(DATABASE_URL)
+        SessionLocal = create_async_session_factory(db_engine)
+    return db_engine
+
+def get_session_factory():
+    """Get or create session factory."""
+    get_db_engine()  # Ensure engine is initialized
+    return SessionLocal
 
 # S3 configuration
 S3_BUCKET = os.getenv("S3_BUCKET", "gamedata-recordings")
@@ -91,7 +112,8 @@ logger = logging.getLogger(__name__)
 
 async def get_db() -> AsyncSession:
     """Get database session."""
-    async with SessionLocal() as session:
+    factory = get_session_factory()
+    async with factory() as session:
         try:
             yield session
         finally:
@@ -104,7 +126,21 @@ async def get_db() -> AsyncSession:
 def validate_startup_config():
     """Validate critical configuration on startup."""
     errors = []
+    global API_SECRET
     warnings_list = []
+
+    # SECURITY: Prevent accidental dev deployment on non-localhost
+    if ENVIRONMENT == "development":
+        import socket
+        hostname = socket.gethostname()
+        is_local_host = hostname in ("localhost", "127.0.0.1") or hostname.startswith("127.") or hostname.endswith(".local")
+        db_is_local = "localhost" in DATABASE_URL or "127.0.0.1" in DATABASE_URL
+
+        if not (is_local_host and db_is_local):
+            errors.append(
+                f"Development mode detected on non-local environment (hostname={hostname}). "
+                "Set ENVIRONMENT=production for remote deployments."
+            )
 
     # Check API_SECRET
     if not API_SECRET:
@@ -120,6 +156,7 @@ def validate_startup_config():
             print(f"  export API_SECRET={temp_secret}")
             print(f"{'=' * 60}\n")
             os.environ["API_SECRET"] = temp_secret
+            API_SECRET = temp_secret
         else:
             errors.append("API_SECRET environment variable is required in production")
     elif len(API_SECRET) < 32:
@@ -181,14 +218,16 @@ async def lifespan(app: FastAPI):
 
     # Create tables if they don't exist (for development)
     if ENVIRONMENT == "development":
-        async with db_engine.begin() as conn:
+        engine = get_db_engine()
+        async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
         logger.info("Database tables created/verified")
 
     yield
 
     # Shutdown
-    await db_engine.dispose()
+    if db_engine:
+        await db_engine.dispose()
     logger.info("Database connections closed")
 
 
@@ -272,12 +311,22 @@ def verify_token(token: str) -> Optional[str]:
 
 def hash_password(password: str) -> str:
     """Hash password with bcrypt."""
-    return pwd_context.hash(password)
+    # Truncate to 72 bytes max for bcrypt compatibility
+    password_bytes = password.encode('utf-8')
+    if len(password_bytes) > 72:
+        password_bytes = password_bytes[:72]
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password_bytes, salt).decode('utf-8')
 
 
 def verify_password(password: str, hashed: str) -> bool:
     """Verify password against hash."""
-    return pwd_context.verify(password, hashed)
+    # Truncate to 72 bytes max for bcrypt compatibility (must match hash_password)
+    password_bytes = password.encode('utf-8')
+    if len(password_bytes) > 72:
+        password_bytes = password_bytes[:72]
+    hashed_bytes = hashed.encode('utf-8')
+    return bcrypt.checkpw(password_bytes, hashed_bytes)
 
 
 # --- Auth Dependency ---
@@ -311,6 +360,8 @@ async def get_current_user(
             return user
 
     # Legacy fallback: treat sk_ prefixed key as valid
+    # SECURITY FIX: Removed auto-creation to prevent Issue #2 vulnerability
+    # Only existing legacy users can authenticate with sk_ keys
     if token.startswith("sk_"):
         legacy_id = f"legacy_{token[3:11]}"
         result = await db.execute(select(User).where(User.id == legacy_id))
@@ -319,16 +370,11 @@ async def get_current_user(
         if user:
             return user
 
-        # Create user if not exists (migration path)
-        user = User(
-            id=legacy_id,
-            email=f"{legacy_id}@gamedatalabs.com",
-            status=UserStatus.ACTIVE,
-            provider="legacy",
+        # Don't auto-create - return error instead (Issue #2 fix)
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid API key. Please register at https://gamedatalabs.com"
         )
-        db.add(user)
-        await db.commit()
-        return user
 
     raise HTTPException(status_code=401, detail="Invalid or expired token")
 
@@ -343,7 +389,7 @@ class RegisterRequest(BaseModel):
     password: str = Field(..., min_length=8)
     display_name: Optional[str] = Field(None, max_length=100)
 
-    @validator("password")
+    @field_validator("password")
     def validate_password(cls, v):
         if not re.match(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)", v):
             raise ValueError("Password must contain uppercase, lowercase, and digit")
@@ -371,9 +417,45 @@ class UploadInitRequest(BaseModel):
     video_fps: Optional[float] = None
     recorder_version: Optional[str] = Field(None, max_length=50)
     hardware_id: Optional[str] = Field(None, max_length=255)
-    metadata: Optional[dict] = None
+    extra_metadata: Optional[dict] = None
 
 
+
+    @field_validator("extra_metadata")
+    def validate_extra_metadata(cls, v):
+        """Validate extra_metadata to prevent injection and DoS."""
+        if v is None:
+            return v
+
+        # Size limit: 10KB when serialized as JSON
+        import json
+        try:
+            serialized = json.dumps(v)
+        except TypeError:
+            raise ValueError("extra_metadata contains non-serializable data")
+        
+        if len(serialized) > 10240:  # 10KB
+            raise ValueError("extra_metadata too large (max 10KB)")
+
+        # Check for dangerous prototype pollution keys
+        dangerous_keys = {"__proto__", "constructor", "prototype"}
+        def check_dangerous_keys(obj, depth=0):
+            if depth > 3:
+                raise ValueError("extra_metadata nested too deep (max depth 3)")
+            if isinstance(obj, dict):
+                for key in obj.keys():
+                    if key in dangerous_keys:
+                        raise ValueError(f"Dangerous key '{key}' not allowed in extra_metadata")
+                    if not isinstance(key, str):
+                        raise ValueError("extra_metadata keys must be strings")
+                    check_dangerous_keys(obj[key], depth + 1)
+            elif isinstance(obj, list):
+                for item in obj:
+                    check_dangerous_keys(item, depth + 1)
+
+        check_dangerous_keys(v)
+
+        return v
 class UploadCompleteRequest(BaseModel):
     """Upload completion request."""
 
@@ -385,7 +467,7 @@ class PayoutRequest(BaseModel):
     """Payout request."""
 
     amount_usd: float = Field(..., gt=0)
-    method: str = Field(..., regex="^(paypal|stripe|bank_transfer)$")
+    method: str = Field(..., pattern="^(paypal|stripe|bank_transfer)$")
     method_details: Optional[dict] = None
 
 
@@ -406,7 +488,7 @@ async def health(db: AsyncSession = Depends(get_db)):
             "environment": ENVIRONMENT,
             "database": "connected",
             "users": user_count,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": utcnow_aware().isoformat(),
         }
     except Exception as e:
         logger.error(f"Health check failed: {e}")
@@ -470,7 +552,7 @@ async def login(req: LoginRequest, db: AsyncSession = Depends(get_db)):
         )
 
     # Update last login
-    user.last_login_at = datetime.utcnow()
+    user.last_login_at = utcnow_naive()
     await db.commit()
 
     # Generate token
@@ -550,7 +632,7 @@ async def upload_init(
         video_fps=req.video_fps,
         recorder_version=req.recorder_version,
         hardware_id=req.hardware_id,
-        metadata=req.metadata,
+        extra_metadata=req.extra_metadata,
         status=UploadStatus.IN_PROGRESS,
     )
 
@@ -600,7 +682,7 @@ async def upload_init(
         "game_control_id": game_control_id,
         "total_chunks": total_chunks,
         "chunk_size_bytes": chunk_size,
-        "expires_at": (datetime.utcnow() + timedelta(hours=24)).isoformat(),
+        "expires_at": (utcnow_aware() + timedelta(hours=24)).isoformat(),
         "chunk_urls": chunk_urls if chunk_urls else None,
     }
 
@@ -627,10 +709,68 @@ async def upload_complete(
         raise HTTPException(
             status_code=400, detail=f"Upload is already {upload.status.value}"
         )
+    
+    # SECURITY FIX for Issue #3: Basic ETag validation
+    # In production with S3, we would verify ETags with S3 CompleteMultipartUpload API
+    # For local storage, we do basic validation
+    if not req.etags or len(req.etags) == 0:
+        raise HTTPException(
+            status_code=400, 
+            detail="ETags are required. Upload verification failed."
+        )
+    
+    # Validate ETag count matches expected chunk count
+    if len(req.etags) != upload.total_chunks:
+        raise HTTPException(
+            status_code=400,
+            detail=f"ETag count mismatch. Expected {upload.total_chunks}, got {len(req.etags)}"
+        )
+    
+    # Validate ETags are not empty or obviously fake
+    for i, etag in enumerate(req.etags):
+        if not etag or len(etag) < 3:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid ETag at index {i}. ETags must be valid upload identifiers."
+            )
+    
+    # Log warning for local storage (Issue #3 partial fix)
+    if not upload.s3_upload_id:
+        logger.warning(
+            f"Upload {upload.id} completed without S3 verification. "
+            "In production, S3 verification is required."
+        )
 
-    # Update upload status
+    # Issue #1 & #3 fix: Calculate content hash from ETags for deduplication
+    # Deduplication now based solely on ETags (simplified approach)
+    import hashlib
+    etag_string = "".join(sorted(req.etags))
+    content_hash = hashlib.sha256(etag_string.encode()).hexdigest()
+
+    # Check for duplicate uploads within 7-day window
+    duplicate_window = utcnow_naive() - timedelta(days=7)
+    dup_result = await db.execute(
+        select(Upload).where(
+            and_(
+                Upload.user_id == current_user.id,
+                Upload.content_hash == content_hash,
+                Upload.created_at > duplicate_window,
+                Upload.status == UploadStatus.COMPLETED
+            )
+        ).limit(1)
+    )
+
+    if dup_result.scalar_one_or_none():
+        raise HTTPException(
+            status_code=409,
+            detail="Duplicate content detected. This file was already uploaded recently."
+        )
+
+    # Update upload status and store ETag
     upload.status = UploadStatus.COMPLETED
-    upload.completed_at = datetime.utcnow()
+    upload.completed_at = utcnow_naive()
+    upload.content_hash = content_hash
+    upload.s3_etag = req.etags[0] if req.etags else None
 
     # Calculate earnings
     duration_hours = (upload.video_duration_seconds or 0) / 3600
@@ -671,7 +811,7 @@ async def earnings_summary(
     current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
 ):
     """Get earnings summary for current user."""
-    today = datetime.utcnow().date()
+    today = utcnow_naive().date()
 
     # Get today's uploads
     result = await db.execute(

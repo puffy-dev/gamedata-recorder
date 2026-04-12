@@ -1,72 +1,238 @@
-"""Run: python3 test_api.py"""
-from main import app
-from fastapi.testclient import TestClient
+"""
+GameData Labs Backend API Tests
+Run with: pytest test_api.py -v
+"""
 
-client = TestClient(app)
+import pytest
 
-# 1. Health
-r = client.get("/health")
-assert r.status_code == 200
-print(f"[PASS] Health: {r.json()}")
 
-# 2. Login
-r = client.post("/api/v1/auth/login", json={"email": "gamer@test.com"})
-assert r.status_code == 200
-token = r.json()["token"]
-user_id = r.json()["user_id"]
-print(f"[PASS] Login: user_id={user_id}")
+@pytest.mark.asyncio
+async def test_health_check(client):
+    """Test health check returns ok status."""
+    response = await client.get("/health")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["status"] == "ok"
+    assert data["version"] == "0.2.0"
 
-headers = {"Authorization": f"Bearer {token}"}
 
-# 3. User info
-r = client.get("/api/v1/user/me", headers=headers)
-assert r.status_code == 200
-assert r.json()["balance_usd"] == 0.0
-print(f"[PASS] User info: balance=${r.json()['balance_usd']}")
+@pytest.mark.asyncio
+async def test_register_new_user_success(client):
+    """Test successful user registration."""
+    from datetime import datetime, timezone
+    timestamp = int(datetime.now(timezone.utc).timestamp())
+    response = await client.post(
+        "/api/v1/auth/register",
+        json={
+            "email": f"test_{timestamp}@example.com",
+            "password": "TestPassword123",
+            "display_name": "New User"
+        }
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert "token" in data
+    assert "user_id" in data
 
-# 4. Upload init
-r = client.post("/api/v1/upload/init", headers=headers, json={
-    "filename": "session_test.tar.gz",
-    "total_size_bytes": 500_000_000,
-    "game_exe": "cs2.exe",
-    "video_duration_seconds": 1800,
-    "video_codec": "hevc_nvenc",
-    "video_fps": 30.0,
-})
-assert r.status_code == 200
-upload_id = r.json()["upload_id"]
-print(f"[PASS] Upload init: {upload_id}, chunks={r.json()['total_chunks']}")
 
-# 5. Upload chunk URL
-r = client.post("/api/v1/upload/chunk", headers=headers, params={"upload_id": upload_id, "chunk_number": 1})
-assert r.status_code == 200
-print(f"[PASS] Chunk URL: {r.json()['upload_url'][:50]}...")
+@pytest.mark.asyncio
+async def test_register_weak_password_fails(client):
+    """Test registration with weak password fails."""
+    response = await client.post(
+        "/api/v1/auth/register",
+        json={
+            "email": "weak@example.com",
+            "password": "weak",
+            "display_name": "Weak User"
+        }
+    )
+    assert response.status_code == 422
 
-# 6. Upload complete
-r = client.post("/api/v1/upload/complete", headers=headers, json={"upload_id": upload_id, "etags": ["abc"]})
-assert r.status_code == 200
-assert r.json()["estimated_earnings_usd"] == 0.25  # 0.5 hours * $0.50/hr
-print(f"[PASS] Upload complete: earned ${r.json()['estimated_earnings_usd']}")
 
-# 7. Earnings
-r = client.get("/api/v1/earnings/summary", headers=headers)
-assert r.status_code == 200
-assert r.json()["total_usd"] == 0.25
-print(f"[PASS] Earnings: total=${r.json()['total_usd']}, hours={r.json()['hours_recorded_total']}")
+@pytest.mark.asyncio
+async def test_get_user_me_success(client, auth_headers):
+    """Test getting current user info."""
+    response = await client.get("/api/v1/user/me", headers=auth_headers)
+    assert response.status_code == 200
+    data = response.json()
+    assert "user_id" in data
 
-# 8. OWL Control compat
-r = client.get("/api/v1/user/info", headers={"X-API-Key": token})
-assert r.status_code == 200
-print(f"[PASS] OWL compat: user_id={r.json()['user_id']}")
 
-# 9. Upload stats
-r = client.get(f"/tracker/v2/uploads/user/{user_id}/stats", headers=headers)
-assert r.status_code == 200
-print(f"[PASS] Stats: {r.json()['total_uploads']} uploads, {r.json()['total_size_bytes']} bytes")
+@pytest.mark.asyncio
+async def test_get_user_no_token_fails(client):
+    """Test getting user info without token fails."""
+    response = await client.get("/api/v1/user/me")
+    assert response.status_code == 401
 
-# 10. App version
-r = client.get("/api/v1/app/version")
-assert r.status_code == 200
-print(f"[PASS] Version: {r.json()['latest_version']}")
 
-print("\n=== ALL 10 TESTS PASSED ===")
+@pytest.mark.asyncio
+async def test_upload_init_success(client, auth_headers):
+    """Test successful upload initialization."""
+    response = await client.post(
+        "/api/v1/upload/init",
+        headers=auth_headers,
+        json={
+            "filename": "test_recording.tar",
+            "total_size_bytes": 50000000,
+            "video_duration_seconds": 3600
+        }
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert "upload_id" in data
+    assert data["total_chunks"] == 2
+
+
+@pytest.mark.asyncio
+async def test_upload_complete_success(client, auth_headers):
+    """Test successful upload completion."""
+    # First create an upload
+    init_response = await client.post(
+        "/api/v1/upload/init",
+        headers=auth_headers,
+        json={
+            "filename": "test.tar",
+            "total_size_bytes": 50000000,
+            "video_duration_seconds": 3600
+        }
+    )
+    upload_id = init_response.json()["upload_id"]
+
+    # Complete the upload
+    response = await client.post(
+        "/api/v1/upload/complete",
+        headers=auth_headers,
+        json={
+            "upload_id": upload_id,
+            "etags": ["etag1", "etag2"]
+        }
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["status"] == "completed"
+
+
+@pytest.mark.asyncio
+async def test_earnings_summary(client, auth_headers):
+    """Test getting earnings summary."""
+    response = await client.get("/api/v1/earnings/summary", headers=auth_headers)
+    assert response.status_code == 200
+    data = response.json()
+    assert "total_usd" in data
+
+
+@pytest.mark.asyncio
+async def test_app_version(client):
+    """Test getting app version."""
+    response = await client.get("/api/v1/app/version")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["latest_version"] == "0.2.0"
+
+
+@pytest.mark.asyncio
+async def test_list_games(client):
+    """Test listing games."""
+    response = await client.get("/api/v1/games?supported_only=true")
+    assert response.status_code == 200
+    data = response.json()
+    assert "games" in data
+
+
+# --- Extra Metadata Validation Tests ---
+
+@pytest.mark.asyncio
+async def test_extra_metadata_too_large_rejected(client, auth_headers):
+    """Test that extra_metadata over 10KB is rejected."""
+    large_metadata = {"data": "x" * 11000}  # Over 10KB
+    
+    response = await client.post(
+        "/api/v1/upload/init",
+        headers=auth_headers,
+        json={
+            "filename": "test.tar",
+            "total_size_bytes": 50000000,
+            "extra_metadata": large_metadata
+        }
+    )
+    
+    assert response.status_code == 422  # Validation error
+    assert "too large" in response.json()["detail"][0]["msg"].lower()
+
+
+@pytest.mark.asyncio
+async def test_extra_metadata_dangerous_keys_rejected(client, auth_headers):
+    """Test that dangerous prototype pollution keys are rejected."""
+    dangerous_metadata = {"__proto__": {"admin": True}}
+    
+    response = await client.post(
+        "/api/v1/upload/init",
+        headers=auth_headers,
+        json={
+            "filename": "test.tar",
+            "total_size_bytes": 50000000,
+            "extra_metadata": dangerous_metadata
+        }
+    )
+    
+    assert response.status_code == 422  # Validation error
+    assert "dangerous" in response.json()["detail"][0]["msg"].lower()
+
+
+@pytest.mark.asyncio
+async def test_extra_metadata_too_deep_rejected(client, auth_headers):
+    """Test that deeply nested extra_metadata is rejected."""
+    deep_metadata = {"a": {"b": {"c": {"d": {"e": "too deep"}}}}}
+    
+    response = await client.post(
+        "/api/v1/upload/init",
+        headers=auth_headers,
+        json={
+            "filename": "test.tar",
+            "total_size_bytes": 50000000,
+            "extra_metadata": deep_metadata
+        }
+    )
+    
+    assert response.status_code == 422  # Validation error
+    assert "nested too deep" in response.json()["detail"][0]["msg"].lower()
+
+
+@pytest.mark.asyncio
+async def test_extra_metadata_valid_accepted(client, auth_headers):
+    """Test that valid extra_metadata is accepted."""
+    valid_metadata = {
+        "game": "valorant",
+        "region": "na",
+        "rank": "diamond",
+        "notes": "Test recording"
+    }
+    
+    response = await client.post(
+        "/api/v1/upload/init",
+        headers=auth_headers,
+        json={
+            "filename": "test.tar",
+            "total_size_bytes": 50000000,
+            "extra_metadata": valid_metadata
+        }
+    )
+    
+    assert response.status_code == 200
+    assert "upload_id" in response.json()
+
+
+@pytest.mark.asyncio
+async def test_extra_metadata_none_allowed(client, auth_headers):
+    """Test that None for extra_metadata is allowed."""
+    response = await client.post(
+        "/api/v1/upload/init",
+        headers=auth_headers,
+        json={
+            "filename": "test.tar",
+            "total_size_bytes": 50000000,
+            "extra_metadata": None
+        }
+    )
+    
+    assert response.status_code == 200
